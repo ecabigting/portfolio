@@ -5,7 +5,7 @@ import SinglePost from "./components/SinglePost"
 import Post from "./components/Post"
 import Project from "./components/Project"
 import NavBar from "./components/NavBar"
-
+//https://www.youtube.com/watch?v=NO7_jgzVgbc&t=3628s
 function App() {
   return (
     <BrowserRouter>
@@ -22,3 +22,4 @@ function App() {
 }
 
 export default App;
+
