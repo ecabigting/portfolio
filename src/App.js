@@ -5,7 +5,8 @@ import SinglePost from "./components/SinglePost"
 import Post from "./components/Post"
 import Project from "./components/Project"
 import NavBar from "./components/NavBar"
-//https://www.youtube.com/watch?v=NO7_jgzVgbc&t=3628s
+import Footer from "./components/Footer"
+
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
         <Route component={Post} path='/post'/>
         <Route component={Project} path='/project'/>
       </Switch>
+    <Footer/>
     </BrowserRouter>
   );  
 }
