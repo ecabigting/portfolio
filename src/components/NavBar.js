@@ -15,17 +15,17 @@ export default function NavBar() {
                     </NavLink>
 
                     <NavLink 
-                    to="/post"
-                    activeClassName="text-white"
-                    className="inline-flex items-center py-4 px-3 my-6 text-gray-100 hover:underline">
-                        Blog
-                    </NavLink>
-
-                    <NavLink 
                     to="/project"
                     activeClassName="text-white"
                     className="inline-flex items-center py-4 px-3 my-6 text-gray-100 hover:underline">
                         Projects
+                    </NavLink>
+
+                    <NavLink 
+                    to="/post"
+                    activeClassName="text-white"
+                    className="inline-flex items-center py-4 px-3 my-6 text-gray-100 hover:underline">
+                        Blog
                     </NavLink>
 
                     <NavLink 
