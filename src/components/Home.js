@@ -49,11 +49,11 @@ export default function Home() {
                                     ------------------- ADS HERE  -------------------
                             </Link>
                         </span>
-                        <span className="pt-4 mb-6 h-full">
+                        {/* <span className="pt-4 mb-6 h-full">
                             <Link to="/post">
                                     See All
                             </Link>
-                        </span>
+                        </span> */}
                     </div>
                 </section>
             </div>
