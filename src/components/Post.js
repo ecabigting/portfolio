@@ -23,7 +23,7 @@ export default function Post() {
         <main className="bg-gray-100 min-h-screen p-12">
             <section className="contain mx-auto">
                 <h1 className="text-5xl flex justify-center regular-text">Posts</h1>
-                <h2 className="text-lg text-gray-500 flex justify-center mb-12">Mostly about code and stuff encounter at work everyday..</h2>
+                <h2 className="text-lg text-gray-500 flex justify-center mb-12">Mostly about code and tech stuff I encounter at work everyday..</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {postData && postData.map((post,index) => (
                         <article>
