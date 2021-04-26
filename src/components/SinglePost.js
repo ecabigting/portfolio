@@ -33,8 +33,31 @@ export default function SinglePost() {
         .catch(console.error)
     ),[slug]);
 
-    if(!singlePost) return <div>that post does not exist!</div>;
-    
+    if(!singlePost){
+        return (
+            <main className="bg-gray-200 min-h-screen p-12">
+                <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
+                    <header className="relative">
+                        <div className="absolute h-full w-full items-center justify-center p-8">
+                            <div className="bg-white bg-opacity-75 rounded p-12">
+                                <h1 className="regular-text lg:text-6xl mb-4 text-center">404</h1>
+                                <div className="justify-center flex text-gray-800">
+                                    <p className="flex items-center pl-2 text-2xl"> Post does not exist!</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* </div>
+                        <img 
+                            src={singlePost.mainImage.asset.url}
+                            alt={singlePost.title}
+                            className="w-full object-cover rounded-t"
+                            style={{ height:"400px" }}
+                            /> */}
+                    </header>
+                </article>
+            </main>
+        );
+    } 
     return (
         <main className="bg-gray-200 min-h-screen p-12">
             <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
