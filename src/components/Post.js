@@ -30,7 +30,7 @@ export default function Post() {
                             <Link to={"/post/" + post.slug.current} key={post.slug.current}>
                                 <span className="block h-64 relative rounded shadow leading-snug bg-white border-l-8 border-gray-800" key={index}>
                                     <img 
-                                    alt={post.mainImage.asset.alt}
+                                    alt={"img_"+post.slug.current}
                                     src={post.mainImage.asset.url}
                                     className="w-full h-full rounded-r object-cover absolute"/>
                                     <span className="block relative h-full flex justify-end items-end pr-4 pb-4">

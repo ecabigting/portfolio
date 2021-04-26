@@ -34,7 +34,7 @@ export default function Home() {
                         {postData && postData.map((post,index) => (
                             <span className="relative rounded shadow w-1/4 h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white" key={index}>
                                 <img 
-                                alt={post.mainImage.asset.alt}
+                                alt={"img_"+post.slug.current}
                                 src={post.mainImage.asset.url}
                                 className="h-full w-full rounded-r object-cover absolute"/>
                                 <Link to={"/post/" + post.slug.current} key={post.slug.current}>    
