@@ -44,16 +44,16 @@ export default function Home() {
                                 </Link>
                             </span>
                         ))}
-                        <span className="relative rounded shadow w-1/4 h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white">
+                        {/* <span className="relative rounded shadow w-1/4 h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white">
                             <Link to="/post">
                                     ------------------- ADS HERE  -------------------
                             </Link>
-                        </span>
-                        {/* <span className="pt-4 mb-6 h-full">
+                        </span> */}
+                        <span className="pt-4 mb-6 h-full">
                             <Link to="/post">
                                     See All
                             </Link>
-                        </span> */}
+                        </span>
                     </div>
                 </section>
             </div>
