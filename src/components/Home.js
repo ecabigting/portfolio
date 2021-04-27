@@ -32,7 +32,7 @@ export default function Home() {
                     <h2 className="text-2xl text-white regular-text lg:leading-snug">Recent Post</h2>
                     <div className="grid md:grid-cols-auto lg:grid-cols-auto pt-6 text-center">
                         {postData && postData.map((post,index) => (
-                            <span className="relative rounded shadow w-1/4 h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white" key={index}>
+                            <span className="relative rounded shadow w-4/5 h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white" key={index}>
                                 <img 
                                 alt={"img_"+post.slug.current}
                                 src={post.mainImage.asset.url}

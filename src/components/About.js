@@ -47,7 +47,7 @@ export default function About() {
         <main className="relative min-h-screen">
             <img src={aboutImage} alt="ecabigting" className="absolute w-full"/>
             <div className="p-10 lg:pt-48 container mx-auto relative ">
-                <section className="bg-gray-900 bg-opacity-80 rounded-lg shadow-2xl lg:flex p-20">
+                <section className="bg-gray-900 bg-opacity-80 rounded-lg shadow-2xl sm:flex p-6 lg:p-20">
                     <img src={urlFor(author.authorImage).url()} className="rounded w-32 h-32" alt={author.name}/>
                     <div className="text-lg flex flex-col justify-center text-white pl-6">
                         <h1 className="text-regular text-4xl text-white-900 mb-4">
