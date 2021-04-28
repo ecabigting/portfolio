@@ -16,3 +16,7 @@
 .home-name {
     font-size: 150px;
 }
+
+#menu-toggle:checked + #menu {
+    display:block;
+}
