@@ -8,13 +8,13 @@ export default function NavBar() {
             <div className="flex-1 flex justify-between items-center">
                 <NavLink to="/" 
                 exact 
-                activeclassName="text-white"
+                activeClassName="text-white"
                 className="inflex-flex items-center py-8 px-3 mr-4 text-white font-bold regular-text text-4xl tracking-widest text-gray-100">
                 ecabigting
                 </NavLink>
             </div>
         
-        <label for="menu-toggle" className="pointer-cursor lg:hidden block"><svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></label>
+        <label htmlFor="menu-toggle" className="pointer-cursor lg:hidden block"><svg className="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></label>
         <input className="hidden" type="checkbox" id="menu-toggle"/>
         
         <div className="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">

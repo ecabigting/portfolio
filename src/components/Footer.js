@@ -35,7 +35,7 @@ export default function Footer() {
                         About
                     </NavLink>
                 </nav>
-                <div className="inline-flex px-2 my-6 text-white">
+                <div className="inline-flex px-2 my-8 text-white text-xs lg:text-md">
                     Copyright &copy; - 2021
                 </div>
                 <div className="inline-flex px-3 my-6">

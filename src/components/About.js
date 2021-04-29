@@ -22,26 +22,26 @@ export default function About() {
         .then((data)=>setAuthor(data[0]))
         .catch(console.error)
     },[]);
-    if(!author) 
-    {
-        return (<div>Author not found</div>);
-        // return (
-        //     <main className="bg-gray-200 min-h-screen p-12 relative">
-        //         <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
-        //             <header className="relative">
-        //                 <div className="absolute h-full w-full items-center justify-center p-8">
-        //                     <div className="bg-white bg-opacity-75 rounded p-12">
-        //                         <h1 className="regular-text lg:text-6xl mb-4 text-center">404</h1>
-        //                         <div className="justify-center flex text-gray-800">
-        //                             <p className="flex items-center pl-2 text-2xl">Author not found!</p>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </header>
-        //         </article>
-        //     </main>
-        // );
-    }
+    
+    if(!author){
+        return (
+            <main className="bg-gray-200 min-h-screen p-12">
+                <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
+                    <header className="relative">
+                        <div className="absolute h-full w-full items-center justify-center p-8">
+                            <div className="bg-white bg-opacity-75 rounded p-12">
+                                <h1 className="regular-text lg:text-6xl mb-4 text-center">404</h1>
+                                <div className="justify-center flex text-gray-800">
+                                    <p className="flex items-center pl-2 text-2xl"> Author does not exist!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </article>
+            </main>
+        );
+    } 
+
 
     return(
         <main className="relative min-h-screen">

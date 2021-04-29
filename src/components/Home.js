@@ -44,11 +44,9 @@ export default function Home() {
                                 </Link>
                             </span>
                         ))}
-                        {/* <span className="relative rounded shadow w-1/4 h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white">
-                            <Link to="/post">
-                                    ------------------- ADS HERE  -------------------
-                            </Link>
-                        </span> */}
+                        <span className="relative rounded shadow mx-auto border-m-8 border-2 border-white ">
+                        <iframe src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=12&l=ez&f=ifr&linkID={{link_id}}&t=ericcabigti0d-20&tracking_id=ericcabigti0d-20" title="ecabigtingamazonaffiliate" scrolling="no" border="0" marginWidth="0" frameBorder="0"></iframe>
+                        </span>
                         <span className="pt-4 mb-6 h-full">
                             <Link to="/post">
                                     See All

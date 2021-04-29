@@ -14,6 +14,16 @@ export default function SinglePost() {
     const [ singlePost, setSinglePost ] = useState(null);
     const { slug } = useParams();
 
+    const serializers = {
+        types: {
+          code: props => (
+            <pre data-language={props.node.language}>
+              <code>{props.node.code}</code>
+            </pre>
+          )
+        }
+      }
+
     useEffect(()=>(
         sanityClient.fetch(`*[slug.current == "${slug}"]{
             title,
@@ -46,13 +56,6 @@ export default function SinglePost() {
                                 </div>
                             </div>
                         </div>
-                        {/* </div>
-                        <img 
-                            src={singlePost.mainImage.asset.url}
-                            alt={singlePost.title}
-                            className="w-full object-cover rounded-t"
-                            style={{ height:"400px" }}
-                            /> */}
                     </header>
                 </article>
             </main>
@@ -71,7 +74,7 @@ export default function SinglePost() {
                                 alt={singlePost.name}
                                 className="w-10 h-10 rounded-full"
                                 />
-                                <p className="flex items-center pl-2 text-2xl"> {singlePost.name} </p>
+                                <p className="flex items-center pl-2 text-sm lg:text-2xl"> {singlePost.name} </p>
                             </div>
                         </div>
                     </div>
@@ -83,9 +86,10 @@ export default function SinglePost() {
                         />
                 </header>
                 <div className="px-16 lg:px-48 py-12 lg:py-20 prose lg:prose-xl max-w-full">
-                    <BlockContent blocks={singlePost.body} projectId="bc4fzsr5" dataset="production"/>
+                    <BlockContent blocks={singlePost.body} projectId="bc4fzsr5" serializers={serializers} dataset="production"/>
                 </div>
             </article>
+            <iframe className="pt-6 mx-auto" src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=12&l=ez&f=ifr&linkID={{link_id}}&t=ericcabigti0d-20&tracking_id=ericcabigti0d-20" title="ecabigtingamazonaffiliate" scrolling="no" border="0" frameBorder="0"></iframe>
         </main>
     );
 }

@@ -25,6 +25,20 @@ export default function Post() {
                 <h1 className="text-5xl flex justify-center regular-text">Posts</h1>
                 <h2 className="text-lg text-gray-500 flex justify-center mb-12">Mostly about code and tech stuff I encounter at work everyday..</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <article>
+                        <span className="block h-64 relative rounded shadow bg-white border-l-8 border-gray-800" key="19825679182638712659t8167y89iuh8q67wet">
+                            <span className="block relative h-full flex justify-end">
+                            <iframe 
+                            title="ecabigtingamazonaffiliate"
+                            src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=12&l=ez&f=ifr&linkID={{link_id}}&t=ericcabigti0d-20&tracking_id=ericcabigti0d-20" 
+                            width="300" 
+                            height="250" 
+                            scrolling="no" 
+                            border="0" 
+                            frameBorder="0"></iframe>
+                            </span>
+                        </span>
+                    </article>
                     {postData && postData.map((post,index) => (
                         <article>
                             <Link to={"/post/" + post.slug.current} key={post.slug.current}>
