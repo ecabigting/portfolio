@@ -26,7 +26,7 @@ export default function Post() {
                 <h2 className="text-lg text-gray-500 flex justify-center mb-12">Mostly about code and tech stuff I encounter at work everyday..</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <article>
-                        <span className="block h-64 relative rounded shadow bg-white border-l-8 border-gray-800" key="19825679182638712659t8167y89iuh8q67wet">
+                        <span className="block h-64 relative rounded shadow bg-white border-l-8 border-gray-800">
                             <span className="block relative h-full flex justify-end">
                             <iframe 
                             title="ecabigtingamazonaffiliate"
@@ -40,9 +40,9 @@ export default function Post() {
                         </span>
                     </article>
                     {postData && postData.map((post,index) => (
-                        <article>
+                        <article key={index}>
                             <Link to={"/post/" + post.slug.current} key={post.slug.current}>
-                                <span className="block h-64 relative rounded shadow leading-snug bg-white border-l-8 border-gray-800" key={index}>
+                                <span className="block h-64 relative rounded shadow leading-snug bg-white border-l-8 border-gray-800">
                                     <img 
                                     alt={"img_"+post.slug.current}
                                     src={post.mainImage.asset.url}
