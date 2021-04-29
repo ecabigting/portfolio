@@ -1,5 +1,4 @@
 import React,{ useEffect,useState } from "react"
-import image from "../home-main-bg.jpg"
 import { Link } from "react-router-dom";
 import sanityClient from "../client.js"
 
@@ -22,17 +21,17 @@ export default function Home() {
     },[])
 
     return (
-        <main className="min-h-screen w-full" style={{ backgroundImage : `url(${image})`,backgroundPosition: 'center top',backgroundSize: 'cover' }}>
+        <main className="min-h-screen w-full" >
             {/* <img src={image} alt="lets code!" className="absolute object-cover min-h-screen w-full"/> */}
-            <div className="relative min-h-screen w-full bg-black bg-opacity-40 ">
-                <section className="relative w-full justify-center text-white text-center">
-                    <h1 className="text-6xl text-white regular-text lg:leading-snug pt-4">...let's &#123;code&#125;</h1>
+            <div className="relative min-h-screen w-full ">
+                <section className="relative w-full justify-center text-gray-900 text-center">
+                    <h1 className="text-6xl text-gray-900 regular-text lg:leading-snug pt-4">...let's &#123;code&#125;</h1>
                 </section>
-                <section className="relative w-full h-full justify-center text-white text-center pt-6">
-                    <h2 className="text-2xl text-white regular-text lg:leading-snug">Recent Post</h2>
+                <section className="relative w-full h-full justify-center text-gray-900 text-center pt-6">
+                    <h2 className="text-2xl text-gray-900 regular-text lg:leading-snug">Recent Post</h2>
                     <div className="grid md:grid-cols-auto lg:grid-cols-auto pt-6 text-center">
                         {postData && postData.map((post,index) => (
-                            <span className="relative rounded shadow h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-white w-72 md:w-5/12" key={index}>
+                            <span className="relative rounded shadow-md h-32 m-auto mb-3 leading-snug border-m-8 border-2 border-gray-100 w-72 md:w-5/12 hover:border-gray-900" key={index}>
                                 <img 
                                 alt={"img_"+post.slug.current}
                                 src={post.mainImage.asset.url}
