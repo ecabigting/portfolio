@@ -43,8 +43,8 @@ export default function NavBar() {
                 </div>
             </nav>
             <div className="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
-                <SocialIcon url="https://www.github.com/ecabigting/" className="mr-3 rounded-full border-2 border-transparent hover:border-white" target="_blank" fgColor="#000" bgColor="#fff" style={{ height:35, width: 35}}/>
-                <SocialIcon url="https://www.linkedin.com/in/ecabigting/" className="mr-3 rounded-full border-2 border-transparent hover:border-white" target="_blank" fgColor="#fff" style={{ height:35, width: 35}}/>
+                <SocialIcon url="https://www.github.com/ecabigting/" className="mr-3 rounded-full border-2 border-transparent hover:border-white" target="_blank" fgColor="#000" rel="noopener noreferrer" bgColor="#fff" style={{ height:35, width: 35}}/>
+                <SocialIcon url="https://www.linkedin.com/in/ecabigting/" className="mr-3 rounded-full border-2 border-transparent hover:border-white" target="_blank" rel="noopner noreferrer" fgColor="#fff" style={{ height:35, width: 35}}/>
             </div>
         </div>
         
