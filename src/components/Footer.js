@@ -40,8 +40,8 @@ export default function Footer() {
                 </div>
                 <div className="inline-flex px-3 my-6">
                     <SocialIcon url="mailto:ecabigting@outlook.com" className="mr-3" target="_blank" fgColor="#fff" style={{ height:35, width: 35}}/>
-                    <SocialIcon url="https://www.github.com/ecabigting/" className="mr-3" target="_blank" fgColor="#000" bgColor="#fff" style={{ height:35, width: 35}}/>
-                    <SocialIcon url="https://www.linkedin.com/in/ecabigting/" className="mr-3" target="_blank" fgColor="#fff" style={{ height:35, width: 35}}/>
+                    <SocialIcon url="https://www.github.com/ecabigting/" className="mr-3" rel="noopner noreferrer" target="_blank" fgColor="#000" bgColor="#fff" style={{ height:35, width: 35}}/>
+                    <SocialIcon url="https://www.linkedin.com/in/ecabigting/" className="mr-3" rel="noopner noreferrer" target="_blank" fgColor="#fff" style={{ height:35, width: 35}}/>
                 </div>
             </div>
         </footer>
