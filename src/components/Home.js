@@ -5,9 +5,10 @@ import sanityClient from "../client.js"
 export default function Home() {
     const [postData, setPost] = useState(null);
     useEffect(()=>{
-        sanityClient.fetch(`*[_type=="post"] | order(publishedAt asc) {
+        sanityClient.fetch(`*[_type=="post"] | order(publishedAt desc) {
             title,
             slug,
+            publishedAt,
             mainImage{
                 asset->{
                     _id,
@@ -22,7 +23,6 @@ export default function Home() {
 
     return (
         <main className="min-h-screen w-full" >
-            {/* <img src={image} alt="lets code!" className="absolute object-cover min-h-screen w-full"/> */}
             <div className="relative min-h-screen w-full ">
                 <section className="relative w-full justify-center text-gray-900 text-center">
                     <h1 className="text-6xl text-gray-900 regular-text lg:leading-snug pt-4">...let's &#123;code&#125;</h1>
@@ -37,7 +37,10 @@ export default function Home() {
                                 src={post.mainImage.asset.url}
                                 className="h-full w-full rounded-r object-cover absolute"/>
                                 <Link to={"/post/" + post.slug.current} key={post.slug.current}>    
-                                    <span className="block relative h-full flex justify-end items-end pr-1 pb-1">
+                                    <span className="block relative flex">
+                                        <h4 className="text-white text-xs font-blog bg-gray-900 bg-opacity-75"> {post.publishedAt.split('T')[0]} </h4>
+                                    </span>
+                                    <span className="block relative mt-12 flex justify-end items-end pr-1 pb-1">
                                         <h3 className="text-white text-sm font-blog px-9 py-4 bg-gray-900 bg-opacity-75 rounded"> {post.title} </h3>
                                     </span>
                                 </Link>

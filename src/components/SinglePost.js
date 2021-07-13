@@ -29,6 +29,7 @@ export default function SinglePost() {
             title,
             _id,
             slug,
+            publishedAt,
             mainImage {
                 asset-> {
                     _id,
@@ -69,12 +70,13 @@ export default function SinglePost() {
                         <div className="bg-white bg-opacity-75 rounded p-12">
                             <h1 className="regular-text lg:text-6xl mb-4 justify-center">{singlePost.title}</h1>
                             <div className="justify-center flex text-gray-800">
+                            <p className="flex items-center pl-2 pr-2 text-sm lg:text-2xl"> {singlePost.publishedAt.split('T')[0]}</p>
                                 <img 
                                 src={urlFor(singlePost.authorImage).url()}
                                 alt={singlePost.name}
                                 className="w-10 h-10 rounded-full"
                                 />
-                                <p className="flex items-center pl-2 text-sm lg:text-2xl"> {singlePost.name} </p>
+                                <p className="flex items-center pl-2 text-sm lg:text-2xl"> {singlePost.name}</p>
                             </div>
                         </div>
                     </div>

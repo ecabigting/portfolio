@@ -5,7 +5,7 @@ import sanityClient from "../client.js"
 export default function Post() {
     const [postData, setPost] = useState(null);
     useEffect(()=>{
-        sanityClient.fetch(`*[_type=="post"]{
+        sanityClient.fetch(`*[_type=="post"] | order(publishedAt desc) {
             title,
             slug,
             mainImage{
