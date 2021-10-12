@@ -24,25 +24,36 @@ export default function SinglePost() {
         }
       }
 
-    useEffect(()=>(
-        sanityClient.fetch(`*[slug.current == "${slug}"]{
-            title,
-            _id,
-            slug,
-            publishedAt,
-            mainImage {
-                asset-> {
+      const fetchData = async (postsQuery) => {
+        try {
+          const data = await sanityClient.fetch(postsQuery);
+          if (data) {
+            setSinglePost(data[0]);
+          }
+        } catch(error) {
+          console.log(error);
+        }
+      }
+        
+    useEffect(() => {
+        const postsQuery = `*[slug.current == "${slug}"]{
+                    title,
                     _id,
-                    url,
-                }
-            },
-            body,
-            "name" : author->name,
-            "authorImage" : author->image
-        }`)
-        .then((data)=>setSinglePost(data[0]))
-        .catch(console.error)
-    ),[slug]);
+                    slug,
+                    publishedAt,
+                    mainImage {
+                        asset-> {
+                            _id,
+                            url,
+                        }
+                    },
+                    body,
+                    "name" : author->name,
+                    "authorImage" : author->image
+                }`;    
+        fetchData(postsQuery);
+    }, [slug]);
+    
 
     if(!singlePost){
         return (
@@ -61,14 +72,15 @@ export default function SinglePost() {
                 </article>
             </main>
         );
-    } 
+    }
+
     return (
         <main className="bg-gray-200 min-h-screen p-12">
             <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
                 <header className="relative">
                     <div className="absolute h-full w-full items-center justify-center p-8">
                         <div className="bg-white bg-opacity-75 rounded p-12">
-                            <h1 className="regular-text lg:text-6xl mb-4 justify-center">{singlePost.title}</h1>
+                            <h1 className="regular-text lg:text-6xl mb-4 text-center">{singlePost.title}</h1>
                             <div className="justify-center flex text-gray-800">
                             <p className="flex items-center pl-2 pr-2 text-sm lg:text-2xl"> {singlePost.publishedAt.split('T')[0]}</p>
                                 <img 
