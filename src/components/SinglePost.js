@@ -26,7 +26,7 @@ export default function SinglePost() {
 
       const fetchData = async (postsQuery) => {
         try {
-          const data = await sanityClient.fetch(postsQuery);
+          const data = await (sanityClient.fetch(postsQuery));
           if (data) {
             setSinglePost(data[0]);
           }
