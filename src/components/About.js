@@ -30,9 +30,9 @@ export default function About() {
                     <header className="relative">
                         <div className="absolute h-full w-full items-center justify-center p-8">
                             <div className="bg-white bg-opacity-75 rounded p-12">
-                                <h1 className="regular-text lg:text-6xl mb-4 text-center">404</h1>
+                                <h1 className="regular-text lg:text-6xl mb-4 text-center">Hey!</h1>
                                 <div className="justify-center flex text-gray-800">
-                                    <p className="flex items-center pl-2 text-2xl"> Author does not exist!</p>
+                                    <p className="flex items-center pl-2 text-2xl"> It's loading..</p>
                                 </div>
                             </div>
                         </div>
