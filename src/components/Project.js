@@ -4,7 +4,7 @@ import sanityClient from "../client"
 export default function Project() {
     const [projectData, setProjectData ] = useState(null);
     useEffect(()=>{
-        sanityClient.fetch(`*[_type == "project"]{
+        sanityClient.fetch(`*[_type == "project"] | order(date desc) {
             title,
             date,
             role,
