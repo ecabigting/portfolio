@@ -1,8 +1,16 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
+import React, {useEffect} from "react"
+import { NavLink,withRouter } from "react-router-dom"
 import { SocialIcon } from "react-social-icons"
+import ReactGA from "react-ga"
 
-export default function NavBar() {
+ReactGA.initialize(process.env.REACT_APP_GA_KEY);
+
+function NavBar() {
+
+    useEffect(()=>{
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    });
+
     return (
         <header className="lg:px-16 px-6 bg-gray-800 flex flex-wrap items-center text-white lg:py-0 py-2">
             <div className="flex-1 flex justify-between items-center">
@@ -51,3 +59,5 @@ export default function NavBar() {
         </header>
     );
 }
+
+export default withRouter(NavBar);
