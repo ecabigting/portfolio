@@ -59,7 +59,7 @@ export default function SinglePost() {
 
     if(!singlePost && !isLoaded){
         return (
-            <main className="bg-gray-200 min-h-screen p-12">
+            <main className="bg-gray-200 min-h-screen p-4">
                 <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
                     <header className="relative">
                         <div className="absolute h-full w-full items-center justify-center p-8">
@@ -77,7 +77,7 @@ export default function SinglePost() {
     }else if(!singlePost && isLoaded)
     {
         return (
-            <main className="bg-gray-200 min-h-screen p-12">
+            <main className="bg-gray-200 min-h-screen p-4">
                 <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
                     <header className="relative">
                         <div className="absolute h-full w-full items-center justify-center p-8">
@@ -96,7 +96,7 @@ export default function SinglePost() {
     }else
     {
         return (
-            <main className="bg-gray-200 min-h-screen p-12">
+            <main className="bg-gray-200 min-h-screen p-4">
                 <article className="container shadow-lg mx-auto bg-gray-100 rounded-lg">
                     <header className="relative">
                         <div className="absolute h-full w-full items-center justify-center p-8">
@@ -120,8 +120,8 @@ export default function SinglePost() {
                             style={{ height:"400px" }}
                             />
                     </header>
-                    <div className="px-16 lg:px-48 py-12 lg:py-20 prose lg:prose-xl max-w-full">
-                        <BlockContent blocks={singlePost.body} projectId="bc4fzsr5" serializers={serializers} dataset="production"/>
+                    <div className="px-4 lg:px-11 py-12 lg:py-20 prose lg:prose-xl max-w-full">
+                        <BlockContent blocks={singlePost.body} projectId="bc4fzsr5" serializers={serializers} dataset="production" className="text-justify"/>
                     </div>
                 </article>
                 <iframe className="pt-6 mx-auto" src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=12&l=ez&f=ifr&linkID={{link_id}}&t=ericcabigti0d-20&tracking_id=ericcabigti0d-20" title="ecabigtingamazonaffiliate" scrolling="no" border="0" frameBorder="0"></iframe>
