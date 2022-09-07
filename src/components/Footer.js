@@ -36,7 +36,7 @@ export default function Footer() {
                     </NavLink>
                 </nav>
                 <div className="inline-flex px-2 my-8 text-white text-xs lg:text-md">
-                    Copyright &copy; - 2021
+                    Copyright &copy; - 2022
                 </div>
                 <div className="inline-flex px-3 my-6">
                     <SocialIcon url="mailto:ecabigting@outlook.com" className="mr-3" target="_blank" fgColor="#fff" style={{ height:35, width: 35}}/>
