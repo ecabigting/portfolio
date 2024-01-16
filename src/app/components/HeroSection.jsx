@@ -47,7 +47,7 @@ export const HeroSection = () => {
             <Image 
             src="/images/hero-image.png" 
             alt="Hero"
-            className="backdrop-blur-sm rounded-full absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover"
+            className=" mx-auto backdrop-blur-sm rounded-full absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover"
             width={250} 
             height={250}
             />
