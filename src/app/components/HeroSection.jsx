@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export const HeroSection = () => {
 	return (
@@ -23,29 +24,37 @@ export const HeroSection = () => {
 						</span>
 						<br />
 						<TypeAnimation
-							sequence={["A Full-stack dev", 1000, "I Like Coding!", 1000, "Lets Build!", 1000]}
+							sequence={["Full-stack Dev", 1000, "more on bank-end", 1000, "I Like dotnet", 1000, "Lets Build!", 1000]}
 							wrapper='span'
 							speed={50}
 							repeat={Infinity}
 						/>
 					</h1>
 					<p className='text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
-						Nostrud adipisicing reprehenderit dolore in incididunt eu et elit sunt non ea.
+						I'm a Digital Product Manager for{" "}
+						<Link href='https://www.digital-qube.com/' className='underline'>
+							{" "}
+							Digital Qube
+						</Link>{" "}
+						in Abu Dhabi, UAE. I have a passion for back-end development and building functionally rich software.
 					</p>
 					<div>
-						<button
+						<Link
+							href='#email'
 							className='px-6 py-3 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mr-4 bg-white hover:bg-slate-200 text-white'
 						>
-							Hire me!
-						</button>
+							Let's talk!
+						</Link>
 						<button
 							className='px-1 py-1 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mt-3 hover:bg-slate-800 text-white'
 						>
-							<span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-3'>Download CV!</span>
+							<Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
+								<span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-3'>Download CV!</span>
+							</Link>
 						</button>
 					</div>
 				</motion.div>

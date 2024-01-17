@@ -22,7 +22,7 @@ const achievementsList = [
 	},
 	{
 		prefix: "~",
-		metric: "Users",
+		metric: "Users Reached",
 		value: "100000",
 	},
 	{

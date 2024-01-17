@@ -12,7 +12,7 @@ const TAB_DATA = [
 		content: (
 			<ul className='list-disc pl-2 '>
 				<li>
-					<h3 className='text-md font-bold'>Full Stack Web Developer (Jul 2021 - Present)</h3>
+					<h3 className='text-md font-bold'>Digital Product Manager (Jul 2021 - Present)</h3>
 					<p className='text-sm font-light'>
 						Digital Qube Marketing Consultancy (formerly eWavelength Digital Marketing)
 					</p>
@@ -20,9 +20,7 @@ const TAB_DATA = [
 				</li>
 				<li>
 					<h3 className='text-md font-bold'>Senior Software Developer (Aug 2017 - Jun 2021)</h3>
-					<p className='text-sm font-light'>
-						Digital Qube Marketing Consultancy(formerly eWavelength Digital Marketing)
-					</p>
+					<p className='text-sm font-light'>Brixio (formerly ITFAQ Softwares)</p>
 					<p className='text-xs font-extralight'>Dubai, United Arab Emirates</p>
 				</li>
 				<li>
@@ -30,9 +28,9 @@ const TAB_DATA = [
 					<p className='text-sm font-light'>Al Dhafra Private Schools</p>
 					<p className='text-xs font-extralight'>Abu Dhabi, United Arab Emirates</p>
 				</li>
-				<li className='text-right last:list-none'>
-					<Link href='#' className='text-md font-extralight'>
-						.. read more
+				<li className='underline last:list-none mt-4'>
+					<Link href='/EricThomasDCabitingCV.pdf' target='_blank' download>
+						View full Resume
 					</Link>
 				</li>
 			</ul>
@@ -77,17 +75,24 @@ const AboutSection = () => {
 		});
 	};
 	return (
-		<section className='text-white'>
+		<section className='text-white' id='about'>
 			<div className='m-2 md:grid md:grid-cols-2 gap-4 items-center py-8 px-4 xl:gap-8 sm:py-16 xl:px-16'>
 				<Image src='/images/aboutme-image2.jpg' width={400} height={400} className='max-auto place-self-center' />
 				<div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
 					<h2 className='text-4xl font-bold text-white mt-4 mb-4'>about me</h2>
-					<p className='text-base md:text-lg'>
-						Do irure Lorem est veniam sunt velit aliquip dolor cupidatat cupidatat consectetur. Cillum commodo id
-						nostrud elit ipsum culpa nisi Lorem. Ea magna anim minim incididunt consequat officia consequat do. Non
-						voluptate ea eu officia magna. Duis do dolore qui sit sit voluptate velit ipsum minim aliquip aliquip. Ea
-						minim culpa ex laboris esse sint veniam duis.
+					<p className='text-base md:text-lg mb-3'>
+						Hi! My name is Eric, and I am a full-stack developer. With passion for back-end development. You know that
+						thing that happens in the background when you click a button? Thats what I love doing. That complex and
+						intricate process of manipulating data and presenting it back to the user.
 					</p>
+
+					<p className='text-base md:text-lg'>
+						With my experience in software development spanning over a decade. Working with different entities, from
+						goverment, hospitality, and commerce. I can help you navigate the confusing world of building your own
+						custom software, specifically tailored to help with your business needs. Starting from planning, designing,
+						implementing beautiful and complex code to help you improve your processes.
+					</p>
+
 					<div className='flex flex-row mt-8'>
 						<TabButton selectTab={() => handleTabChange("experience")} active={tab === "experience"}>
 							{" "}

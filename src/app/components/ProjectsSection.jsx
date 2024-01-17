@@ -90,11 +90,11 @@ const ProjectsSection = () => {
 	const filteredProjects = projectData.filter((project) => project.tag.includes(tag));
 
 	const cardVariants = {
-		intial: { y: 50, opacity: 0 },
+		initial: { y: 50, opacity: 0 },
 		animate: { y: 0, opacity: 1 },
 	};
 	return (
-		<section>
+		<section id='projects'>
 			<h2 className='text-center text-4xl font-bold text-white mt-4 mb-4'>Projects</h2>
 			<div className='text-white flex flex-row justify-center items-center gap-2 py-6'>
 				<ProjectTag onClick={handleTagChange} name='ALL' isSelected={tag === "ALL"} />
@@ -106,9 +106,9 @@ const ProjectsSection = () => {
 					<motion.li
 						key={index}
 						variants={cardVariants}
-						intial='initial'
+						initial='initial'
 						animate={isInView ? "animate" : "initial"}
-						transition={{ duration: 0.3, delay: index * 0.1 }}
+						transition={{ duration: 0.3, delay: index * 0.4 }}
 					>
 						<ProjectCard
 							key={project.id}

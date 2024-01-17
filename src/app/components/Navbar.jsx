@@ -16,7 +16,7 @@ const navLinks = [
 	},
 	{
 		title: "contact",
-		href: "#contact",
+		href: "#email",
 	},
 	{
 		title: "github",
