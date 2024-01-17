@@ -80,7 +80,7 @@ const AboutSection = () => {
 			<div className='m-2 md:grid md:grid-cols-2 gap-4 items-center py-8 px-4 xl:gap-8 sm:py-16 xl:px-16'>
 				<Image src='/images/aboutme-image2.jpg' width={400} height={400} className='max-auto place-self-center' />
 				<div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
-					<h2 className='text-4xl font-bold text-white mt-4 border-b-2 border-b-orange-500 mb-4'>about me</h2>
+					<h2 className='text-4xl font-bold text-white mt-4 mb-4'>about me</h2>
 					<p className='text-base md:text-lg'>
 						Do irure Lorem est veniam sunt velit aliquip dolor cupidatat cupidatat consectetur. Cillum commodo id
 						nostrud elit ipsum culpa nisi Lorem. Ea magna anim minim incididunt consequat officia consequat do. Non
