@@ -3,6 +3,7 @@ import React, { useState, useTransition } from "react";
 import TabButton from "./TabButton";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const TAB_DATA = [
 	{

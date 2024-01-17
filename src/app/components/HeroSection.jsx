@@ -2,13 +2,19 @@
 import React from "react";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
+import { motion } from "framer-motion";
 
 export const HeroSection = () => {
 	return (
 		<section className='lg:py-16'>
 			<div className='grid grid-cols-1 sm:grid-cols-12'>
-				<div className='col-span-7 place-self-center text-center pr-3 sm:text-left justify-self-start'>
-					<h1 className='text-white mb-4 text-4xl sm:text-5xl lg:text-8xl lg:leading-none font-extrabold'>
+				<motion.div
+					initial={{ scale: 0 }}
+					animate={{ scale: 1 }}
+					transition={{ duration: 0.5 }}
+					className='col-span-7 place-self-center text-center pr-3 sm:text-left'
+				>
+					<h1 className='text-white mb-4 text-4xl sm:text-5xl lg:text-8xl font-extrabold'>
 						<span
 							className='text-transparent bg-clip-text bg-gradient-to-r from-red-400 
             via-white-400 to-yellow-400 mr-4 bg-white'
@@ -42,7 +48,7 @@ export const HeroSection = () => {
 							<span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-3'>Download CV!</span>
 						</button>
 					</div>
-				</div>
+				</motion.div>
 				<div className='col-span-5 place-self-center mt-4 lg:mt-0'>
 					<div
 						className='rounded-full w-[250px] h-[250px] lg:w-[250px] lg:h-[250px] relative mt-4
