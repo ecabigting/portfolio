@@ -11,7 +11,7 @@ const AnimatedNumbers = dynamic(
 
 const achievementsList = [
 	{
-		metric: "Year of Experience",
+		metric: "Years",
 		value: "10",
 		postfix: "+",
 	},
@@ -22,7 +22,7 @@ const achievementsList = [
 	},
 	{
 		prefix: "~",
-		metric: "Users Reached",
+		metric: "Users",
 		value: "100000",
 	},
 	{
@@ -34,18 +34,18 @@ const achievementsList = [
 
 const AchievementsSection = () => {
 	return (
-		<div className='py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
-			<div className='border-[#33353F] border rounded-md py-8 px-16 flex flex-row items-center justify-between'>
+		<div className='py-8 px-4'>
+			<div className='border-[#33353F] border rounded-md py-8 flex flex-row items-center justify-between'>
 				{achievementsList.map((achi, index) => {
 					return (
-						<div key={index} className='flex flex-col items-center justify-center mx-4'>
-							<h2 className='text-white text-4xl font-bold flex flex-row'>
+						<div key={index} className='flex flex-col items-center justify-center mx-2'>
+							<h2 className='text-white font-bold flex flex-row text-sm px-2 md:text-4xl lg:px-16'>
 								{achi.prefix}
 								<AnimatedNumbers
 									includeComma
 									animateToNumber={parseInt(achi.value)}
 									locale='en-US'
-									className='text-white text-4xl font-bold'
+									className='sm:text-md'
 									configs={(_, index) => {
 										return {
 											mass: 1,
@@ -56,7 +56,7 @@ const AchievementsSection = () => {
 								/>
 								{achi.postfix}
 							</h2>
-							<p className='text-[#ADB7BE] text-base'>{achi.metric}</p>
+							<p className='text-[#ADB7BE] text-xs md:text-base'>{achi.metric}</p>
 						</div>
 					);
 				})}

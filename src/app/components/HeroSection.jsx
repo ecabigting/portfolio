@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const HeroSection = () => {
 	return (
-		<section className='lg:py-16'>
+		<section className='lg:py-14'>
 			<div className='grid grid-cols-1 sm:grid-cols-12'>
 				<motion.div
 					initial={{ scale: 0 }}
@@ -39,23 +39,24 @@ export const HeroSection = () => {
 						in Abu Dhabi, UAE. I have a passion for back-end development and building functionally rich software.
 					</p>
 					<div>
-						<Link
-							href='#email'
-							className='px-6 py-3 w-full sm:w-fit rounded-full 
+						<Link href='#email'>
+							<button
+								className='px-6 py-3 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mr-4 bg-white hover:bg-slate-200 text-white'
-						>
-							Let's talk!
+							>
+								Let's talk!
+							</button>
 						</Link>
-						<button
-							className='px-1 py-1 w-full sm:w-fit rounded-full 
+						<Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
+							<button
+								className='px-1 py-1 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mt-3 hover:bg-slate-800 text-white'
-						>
-							<Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
+							>
 								<span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-3'>Download CV!</span>
-							</Link>
-						</button>
+							</button>
+						</Link>
 					</div>
 				</motion.div>
 				<div className='col-span-5 place-self-center mt-4 lg:mt-0'>

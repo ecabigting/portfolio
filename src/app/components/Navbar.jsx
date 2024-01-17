@@ -26,6 +26,12 @@ const navLinks = [
 
 const Navbar = () => {
 	const [navBarOpen, setNavbarOpen] = useState(false);
+	const handleCloseNavBarOnLinkClick = () => {
+		// finish this, find a way to call this function
+		// while also redirecting the user to the proper section
+		console.log("click!");
+		setNavbarOpen(false);
+	};
 	return (
 		<nav className='fixed top-0 left-0 right-0 z-10 bg-[#121212]'>
 			<div className='flex flex-wrap items-center justify-between mx-auto p-8 px-4'>
