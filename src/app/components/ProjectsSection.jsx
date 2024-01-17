@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import ProjectCard from "./ProjectCard";
+import ProjectTag from "./ProjectTag";
 
 const projectData = [
 	{
@@ -7,7 +9,7 @@ const projectData = [
 		title: "Wild Wadi Waterpark™",
 		description: "E-commerce website for the Wild Wadi Waterpark™",
 		image: "/images/projects/thumbs/proj-wildwadi.webp",
-		tag: ["ALL,WEB"],
+		tag: ["ALL", "WEB"],
 		gitHub: "",
 		projectURL: "https://wildwadi.com/",
 	},
@@ -16,7 +18,7 @@ const projectData = [
 		title: "Inside Burj Al Arab",
 		description: "E-commerce website for Inside Burj Al Arab Tours",
 		image: "/images/projects/thumbs/proj-ibaa.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "WEB"],
 		gitHub: "",
 		projectURL: "https://insideburjalarab.com/",
 	},
@@ -25,7 +27,7 @@ const projectData = [
 		title: "The Original Barracuda",
 		description: "E-commerce and reward app for The Originall Barrcuda Bottle Shop",
 		image: "/images/projects/thumbs/proj-barracuda.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "WEB", "MOBILE"],
 		gitHub: "",
 		projectURL: "https://www.originalbarracuda.com/",
 	},
@@ -34,7 +36,7 @@ const projectData = [
 		title: "MovieAPP",
 		description: "Website for searching movies using TheMovieDB API",
 		image: "/images/projects/thumbs/proj-movieapp.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "WEB"],
 		gitHub: "https://github.com/ecabigting/movieapp",
 		projectURL: "https://ecabigting-movieapp.netlify.app/",
 	},
@@ -43,7 +45,7 @@ const projectData = [
 		title: "DCIAA-IIAN",
 		description: "Mobile app and dashboard investigation and Notification system for Dubai Civil Aviation Authority",
 		image: "/images/projects/thumbs/proj-dcaaiian.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "MOBILE"],
 		gitHub: "",
 		projectURL: "https://apps.apple.com/us/app/dcaa-iian/id1466031139",
 	},
@@ -52,7 +54,7 @@ const projectData = [
 		title: "Al Mawashi",
 		description: "E-commerce and Mobile app with backend store management system for Al Mawashi Meat Shop in MENA",
 		image: "/images/projects/thumbs/proj-mawashi.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "WEB", "MOBILE"],
 		gitHub: "",
 		projectURL: "https://www.almawashistore.com/",
 	},
@@ -61,7 +63,7 @@ const projectData = [
 		title: "Al Dhafra Private Schools",
 		description: "School Management Portal for Al Dhafra Private Schools",
 		image: "/images/projects/thumbs/proj-dhafra.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "MOBILE"],
 		gitHub: "",
 		projectURL: "https://dhafraschools.com/",
 	},
@@ -70,17 +72,29 @@ const projectData = [
 		title: "nextSpot",
 		description: "Private online media sharing and review system for Fotokem Industries INC.",
 		image: "/images/projects/thumbs/proj-nextspot.webp",
-		tag: ["ALL,WEB,MOBILE"],
+		tag: ["ALL", "WEB"],
 		gitHub: "",
 		projectURL: "https://nextspot.fotokem.com/",
 	},
 ];
 const ProjectsSection = () => {
+	const [tag, setTag] = useState("ALL");
+	const handleTagChange = (newTag) => {
+		setTag(newTag);
+	};
+
+	const filteredProjects = projectData.filter((project) => project.tag.includes(tag));
+
 	return (
 		<>
 			<h2 className='text-center text-4xl font-bold text-white mt-4 mb-4'>Projects</h2>
+			<div className='text-white flex flex-row justify-center items-center gap-2 py-6'>
+				<ProjectTag onClick={handleTagChange} name='ALL' isSelected={tag === "ALL"} />
+				<ProjectTag onClick={handleTagChange} name='WEB' isSelected={tag === "WEB"} />
+				<ProjectTag onClick={handleTagChange} name='MOBILE' isSelected={tag === "MOBILE"} />
+			</div>
 			<div className='grid md:grid-cols-3 gap-8 md:gap-12'>
-				{projectData.map((project) => (
+				{filteredProjects.map((project) => (
 					<ProjectCard
 						key={project.id}
 						title={project.title}
