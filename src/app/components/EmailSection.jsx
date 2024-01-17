@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import GitHubIcon from "../../../public/images/github-icon.svg";
 import LinkedInIcon from "../../../public/images/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
 
 const EmailSection = () => {
+	const [emailSubmitted, setEmailSubmitted] = useState(false);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -22,12 +24,11 @@ const EmailSection = () => {
 			},
 			body: JSONdata,
 		};
-		console.log(JSONdata);
 		try {
 			const response = await fetch(endpoint, options);
 			const resData = await response.json();
-			console.log(resData);
 			if (response.status === 200) {
+				setEmailSubmitted(true);
 				console.log("Message sent.");
 			} else {
 				console.log("Failed!");
@@ -103,6 +104,11 @@ const EmailSection = () => {
 					>
 						Send Message
 					</button>
+					{emailSubmitted && (
+						<p className='text-green-500 text-sm mt-2'>
+							Thank you for your email! Will get back to you ASAP! Have a good one!
+						</p>
+					)}
 				</form>
 			</div>
 		</section>

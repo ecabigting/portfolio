@@ -5,10 +5,10 @@ import { TypeAnimation } from "react-type-animation";
 
 export const HeroSection = () => {
 	return (
-		<section>
+		<section className='lg:py-16'>
 			<div className='grid grid-cols-1 sm:grid-cols-12'>
-				<div className='col-span-7 place-self-center text-center pr-3 sm:text-left'>
-					<h1 className='text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold'>
+				<div className='col-span-7 place-self-center text-center pr-3 sm:text-left justify-self-start'>
+					<h1 className='text-white mb-4 text-4xl sm:text-5xl lg:text-8xl lg:leading-none font-extrabold'>
 						<span
 							className='text-transparent bg-clip-text bg-gradient-to-r from-red-400 
             via-white-400 to-yellow-400 mr-4 bg-white'
@@ -17,13 +17,7 @@ export const HeroSection = () => {
 						</span>
 						<br />
 						<TypeAnimation
-							sequence={[
-								// Same substring at the start will only be typed out once, initially
-								"A Full-stack dev",
-								1000, // wait 1s before replacing "Mice" with "Hamsters"
-								"Lets code!",
-								1000,
-							]}
+							sequence={["A Full-stack dev", 1000, "I Like Coding!", 1000, "Lets Build!", 1000]}
 							wrapper='span'
 							speed={50}
 							repeat={Infinity}
