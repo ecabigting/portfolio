@@ -75,11 +75,13 @@ const AboutSection = () => {
 		});
 	};
 	return (
-		<section className='text-white' id='about'>
+		<section className='text-white'>
 			<div className='m-2 md:grid md:grid-cols-2 gap-4 items-center py-8 px-4 xl:gap-8 sm:py-16 xl:px-16'>
 				<Image src='/images/aboutme-image2.jpg' width={400} height={400} className='max-auto place-self-center' />
 				<div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
-					<h2 className='text-4xl font-bold text-white mt-4 mb-4'>about me</h2>
+					<h2 className='text-4xl font-bold text-white mt-4 mb-4' id='about'>
+						about me
+					</h2>
 					<p className='text-base md:text-lg mb-3'>
 						Hi! My name is Eric, and I am a full-stack developer. With passion for back-end development. You know that
 						thing that happens in the background when you click a button? Thats what I love doing. That complex and
