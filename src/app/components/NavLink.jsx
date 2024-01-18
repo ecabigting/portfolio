@@ -5,9 +5,15 @@ const NavLink = ({ target, title, hideMainOverLay }) => {
 		e.preventDefault();
 		const targetId = target.replace(/.*\#/, "");
 		const elem = document.getElementById(targetId);
-		elem?.scrollIntoView({
+		// elem?.scrollIntoView({
+		// 	behavior: "smooth",
+		// });
+		console.log(targetId);
+		window.scrollTo({
+			top: elem?.getBoundingClientRect().top - 100,
 			behavior: "smooth",
 		});
+
 		hideMainOverLay?.();
 	};
 
