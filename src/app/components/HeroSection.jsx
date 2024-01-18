@@ -11,6 +11,8 @@ export const HeroSection = () => {
 		const elem = document.getElementById("email");
 		elem?.scrollIntoView({
 			behavior: "smooth",
+			block: "start",
+			inline: "nearest",
 		});
 	};
 	return (
