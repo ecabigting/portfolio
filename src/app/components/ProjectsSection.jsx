@@ -81,9 +81,10 @@ const projectData = [
 const ProjectsSection = () => {
 	const [tag, setTag] = useState("ALL");
 	const ref = useRef(null);
-	const isInView = useInView(ref, { once: true });
+	const isInView = useInView(ref, { once: false });
 
 	const handleTagChange = (newTag) => {
+		isInView;
 		setTag(newTag);
 	};
 
@@ -96,30 +97,73 @@ const ProjectsSection = () => {
 	return (
 		<section id='projects'>
 			<h2 className='text-center text-4xl font-bold text-white mt-4 mb-4'>Projects</h2>
-			<div className='text-white flex flex-row justify-center items-center gap-2 py-6'>
+			<div ref={ref} className='text-white flex flex-row justify-center items-center gap-2 py-6'>
 				<ProjectTag onClick={handleTagChange} name='ALL' isSelected={tag === "ALL"} />
 				<ProjectTag onClick={handleTagChange} name='WEB' isSelected={tag === "WEB"} />
 				<ProjectTag onClick={handleTagChange} name='MOBILE' isSelected={tag === "MOBILE"} />
 			</div>
-			<ul ref={ref} className='grid md:grid-cols-3 gap-8 md:gap-12'>
-				{filteredProjects.map((project, index) => (
-					<motion.li
-						key={index}
-						variants={cardVariants}
-						initial='initial'
-						animate={isInView ? "animate" : "initial"}
-						transition={{ duration: 0.3, delay: index * 0.4 }}
-					>
-						<ProjectCard
-							key={project.id}
-							title={project.title}
-							description={project.description}
-							imgUrl={project.image}
-							gitHub={project.gitHub}
-							projectURL={project.projectURL}
-						/>
-					</motion.li>
-				))}
+			<ul className='grid md:grid-cols-3 gap-8 md:gap-12'>
+				{tag === "ALL" &&
+					filteredProjects.map((project, index) => (
+						<motion.li
+							key={index}
+							variants={cardVariants}
+							initial='initial'
+							animate={isInView ? "animate" : "initial"}
+							transition={{ duration: 0.3, delay: index * 0.4 }}
+						>
+							<ProjectCard
+								key={project.id}
+								title={project.title}
+								description={project.description}
+								imgUrl={project.image}
+								gitHub={project.gitHub}
+								projectURL={project.projectURL}
+							/>
+						</motion.li>
+					))}
+
+				{tag === "WEB" &&
+					filteredProjects
+						.map((project, index) => (
+							<motion.li
+								key={index}
+								variants={cardVariants}
+								initial='initial'
+								animate={isInView ? "animate" : "initial"}
+								transition={{ duration: 0.3, delay: index * 0.4 }}
+							>
+								<ProjectCard
+									key={project.id}
+									title={project.title}
+									description={project.description}
+									imgUrl={project.image}
+									gitHub={project.gitHub}
+									projectURL={project.projectURL}
+								/>
+							</motion.li>
+						))
+						.sort()}
+
+				{tag === "MOBILE" &&
+					filteredProjects.map((project, index) => (
+						<motion.li
+							key={index}
+							variants={cardVariants}
+							initial='initial'
+							animate={isInView ? "animate" : "initial"}
+							transition={{ duration: 0.3, delay: index * 0.4 }}
+						>
+							<ProjectCard
+								key={project.id}
+								title={project.title}
+								description={project.description}
+								imgUrl={project.image}
+								gitHub={project.gitHub}
+								projectURL={project.projectURL}
+							/>
+						</motion.li>
+					))}
 			</ul>
 		</section>
 	);
