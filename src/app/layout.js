@@ -19,15 +19,9 @@ export const metadata = {
 		siteName: "ecabigting - developer portfolio",
 		images: [
 			{
-				url: "https://ericcabigting.dev/_ipx/w_256,q_75/%2Fimages%2Fhero-image.png", // Must be an absolute URL
+				url: "https://ericcabigting.dev/_ipx/w_256,q_75/%2Fimages%2Factual-hero-image.png", // Must be an absolute URL
 				width: 800,
 				height: 600,
-			},
-			{
-				url: "https://ericcabigting.dev/_ipx/w_256,q_75/%2Fimages%2Fhero-image.png", // Must be an absolute URL
-				width: 1800,
-				height: 1600,
-				alt: "eric thomas cabigting, developer portfolio",
 			},
 		],
 		locale: "en_US",
