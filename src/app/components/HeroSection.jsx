@@ -20,7 +20,7 @@ export const HeroSection = () => {
 							className='text-transparent bg-clip-text bg-gradient-to-r from-red-400 
             via-white-400 to-yellow-400 mr-4 bg-white'
 						>
-							Hey! I'm Eric!{" "}
+							Hey! I&apos;m Eric!{" "}
 						</span>
 						<br />
 						<TypeAnimation
@@ -31,7 +31,7 @@ export const HeroSection = () => {
 						/>
 					</h1>
 					<p className='text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
-						I'm a Digital Product Manager for{" "}
+						I&apos;m a Digital Product Manager for{" "}
 						<Link href='https://www.digital-qube.com/' className='underline'>
 							{" "}
 							Digital Qube
@@ -45,7 +45,7 @@ export const HeroSection = () => {
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mr-4 bg-white hover:bg-slate-200 text-white'
 							>
-								Let's talk!
+								Let&apos;s talk!
 							</button>
 						</Link>
 						<Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
