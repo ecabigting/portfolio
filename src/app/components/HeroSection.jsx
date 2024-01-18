@@ -75,7 +75,7 @@ export const HeroSection = () => {
             bg-gradient-to-r from-red-400 via-white-400 to-yellow-400 bg-[#181818] '
 					>
 						<Image
-							src='/images/hero-image.png'
+							src='/images/actual-hero-image.png'
 							alt='Hero'
 							className=' mx-auto backdrop-blur-sm rounded-full absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover'
 							width={250}
