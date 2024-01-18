@@ -1,10 +1,17 @@
 import { Inter } from "next/font/google";
-import OgImage from "../../public/images/";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+	metadataBase: new URL("https://ericcabigting.dev"),
+	alternates: {
+		canonical: "/",
+		languages: {
+			"en-US": "/en-US",
+			"de-DE": "/de-DE",
+		},
+	},
 	title: "ecabigting",
 	description:
 		"With my experience in software development spanning over a decade.  I can help you navigate the confusing world of building your own custom software. From planning, designing, to deployment!",
