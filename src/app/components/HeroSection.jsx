@@ -6,6 +6,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export const HeroSection = () => {
+	const handleOnClick = (e) => {
+		e.preventDefault();
+		const elem = document.getElementById("email");
+		elem?.scrollIntoView({
+			behavior: "smooth",
+		});
+	};
 	return (
 		<section className='lg:py-14'>
 			<div className='grid grid-cols-1 sm:grid-cols-12'>
@@ -39,15 +46,14 @@ export const HeroSection = () => {
 						in Abu Dhabi, UAE. I have a passion for back-end development and building functionally rich software.
 					</p>
 					<div>
-						<Link href='#email'>
-							<button
-								className='px-6 py-3 w-full sm:w-fit rounded-full 
+						<button
+							className='px-6 py-3 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mr-4 bg-white hover:bg-slate-200 text-white'
-							>
-								Let&apos;s talk!
-							</button>
-						</Link>
+							onClick={(e) => handleOnClick(e)}
+						>
+							Let&apos;s talk!
+						</button>
 						<Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
 							<button
 								className='px-1 py-1 w-full sm:w-fit rounded-full 
