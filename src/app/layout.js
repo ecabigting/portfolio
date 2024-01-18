@@ -7,10 +7,6 @@ export const metadata = {
 	metadataBase: new URL("https://ericcabigting.dev"),
 	alternates: {
 		canonical: "/",
-		languages: {
-			"en-US": "/en-US",
-			"de-DE": "/de-DE",
-		},
 	},
 	title: "ecabigting",
 	description:
