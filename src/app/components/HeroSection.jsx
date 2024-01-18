@@ -33,7 +33,7 @@ export const HeroSection = () => {
 						</span>
 						<br />
 						<TypeAnimation
-							sequence={["Full-stack Dev", 1000, "more on bak-end", 1000, "I Like dotnet", 1000, "Lets Build!", 1000]}
+							sequence={["Full-stack Dev", 1000, "more on back-end", 1000, "I Like dotnet", 1000, "Lets Build!", 1000]}
 							wrapper='span'
 							speed={50}
 							repeat={Infinity}
