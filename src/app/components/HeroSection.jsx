@@ -6,15 +6,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export const HeroSection = () => {
-	const handleOnClick = (e) => {
-		e.preventDefault();
-		const elem = document.getElementById("email");
-		elem?.scrollIntoView({
+	const handleOnClick = (e, target) => {
+		e?.preventDefault();
+		const targetId = target.replace(/.*\#/, "");
+		const elem = document.getElementById(targetId);
+		console.log(targetId);
+		window.scrollTo({
+			top: elem?.getBoundingClientRect().top + window.scrollY - 100,
 			behavior: "smooth",
-			block: "start",
-			inline: "nearest",
 		});
 	};
+
 	return (
 		<section className='lg:py-14'>
 			<div className='grid grid-cols-1 sm:grid-cols-12'>
@@ -52,7 +54,7 @@ export const HeroSection = () => {
 							className='px-6 py-3 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
             mr-4 bg-white hover:bg-slate-200 text-white'
-							onClick={(e) => handleOnClick(e)}
+							onClick={(e) => handleOnClick(e, "#email")}
 						>
 							Let&apos;s talk!
 						</button>
