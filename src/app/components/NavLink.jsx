@@ -10,10 +10,9 @@ const NavLink = ({ target, title, hideMainOverLay }) => {
 		// });
 		console.log(targetId);
 		window.scrollTo({
-			top: elem?.getBoundingClientRect().top - 100,
+			top: elem?.getBoundingClientRect().top + window.scrollY - 100,
 			behavior: "smooth",
 		});
-
 		hideMainOverLay?.();
 	};
 
