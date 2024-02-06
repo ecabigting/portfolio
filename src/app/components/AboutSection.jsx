@@ -79,7 +79,7 @@ const AboutSection = () => {
 			<div className='m-2 md:grid md:grid-cols-2 gap-4 items-center py-8 px-4 xl:gap-8 sm:py-16 xl:px-16'>
 				<Image
 					alt='coding'
-					src='/images/aboutme-image2.jpg'
+					src='/images/aboutme-image2.webp'
 					width={400}
 					height={400}
 					className='max-auto place-self-center'
