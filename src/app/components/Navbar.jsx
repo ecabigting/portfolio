@@ -18,10 +18,6 @@ const navLinks = [
 		title: "contact",
 		href: "#email",
 	},
-	{
-		title: "github",
-		href: "https://github.com/ecabigting",
-	},
 ];
 
 const Navbar = () => {
@@ -56,6 +52,15 @@ const Navbar = () => {
 								<NavLink target={link.href} title={link.title} />
 							</li>
 						))}
+						<li>
+							<a
+								href='https://github.com/ecabigting'
+								target='_blank'
+								className='block py-2 pl-3 pr-4 text-[#ADB7BE] sm:text-xl rounded md:p-0 hover:text-white'
+							>
+								github
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>

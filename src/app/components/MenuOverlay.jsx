@@ -9,6 +9,15 @@ const MenuOverlay = ({ links, hideMainOverlay }) => {
 					<NavLink target={link.href} title={link.title} hideMainOverLay={hideMainOverlay} />
 				</li>
 			))}
+			<li className='border-b border-b-slate-50'>
+				<a
+					href='https://github.com/ecabigting'
+					target='_blank'
+					className='block py-2 pl-3 pr-4 text-[#ADB7BE] sm:text-xl rounded md:p-0 hover:text-white'
+				>
+					github
+				</a>
+			</li>
 		</ul>
 	);
 };
