@@ -9,6 +9,13 @@ export const metadata = {
 		canonical: "/",
 	},
 	title: "ecabigting",
+	images: [
+		{
+			url: "https://ericcabigting.dev/_ipx/w_256,q_75/%2Fimages%2Factual-hero-image.webp", // Must be an absolute URL
+			width: 800,
+			height: 600,
+		},
+	],
 	description:
 		"With my experience in software development spanning over a decade.  I can help you navigate the confusing world of building your own custom software. From planning, designing, to deployment!",
 	openGraph: {
@@ -19,7 +26,7 @@ export const metadata = {
 		siteName: "ecabigting - developer portfolio",
 		images: [
 			{
-				url: "https://ericcabigting.dev/_ipx/w_256,q_75/%2Fimages%2Factual-hero-image.png", // Must be an absolute URL
+				url: "https://ericcabigting.dev/_ipx/w_256,q_75/%2Fimages%2Factual-hero-image.webp", // Must be an absolute URL
 				width: 800,
 				height: 600,
 			},
