@@ -35,7 +35,7 @@ export const HeroSection = () => {
 						</span>
 						<br />
 						<TypeAnimation
-							sequence={["Full-stack Dev", 1000, "more on back-end", 1000, "I Like dotnet", 1000, "Lets Build!", 1000]}
+							sequence={["Full-stack Dev", 1000, "more on back-end", 1000, "Lets Build!", 1000]}
 							wrapper='span'
 							speed={50}
 							repeat={Infinity}
@@ -58,7 +58,7 @@ export const HeroSection = () => {
 						>
 							Let&apos;s talk!
 						</button>
-						<Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
+						<Link href='/EricThomasDCabitingResume.pdf' download target='_blank'>
 							<button
 								className='px-1 py-1 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
