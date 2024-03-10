@@ -47,7 +47,8 @@ const TAB_DATA = [
 				<li>NodeJS, C#, .net</li>
 				<li>React, NextJS, Angular</li>
 				<li>PostgreSQL,MSSQL, MySQL, MongoDB</li>
-				<li></li>
+				<li>AWS, Microsoft Azure, Netlify, Vercel</li>
+				<li>Git, Docker, npm, shadcn/ui</li>
 			</ul>
 		),
 	},
