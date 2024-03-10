@@ -97,6 +97,7 @@ const ProjectsSection = () => {
 	return (
 		<section id='projects' ref={ref}>
 			<h2 className='text-center text-4xl font-bold text-white mt-4 mb-4'>Projects</h2>
+			<p className='text-center'>Some of the projects I worked through out my career</p>
 			<div className='text-white flex flex-row justify-center items-center gap-2 py-6'>
 				<ProjectTag onClick={handleTagChange} name='ALL' isSelected={tag === "ALL"} />
 				<ProjectTag onClick={handleTagChange} name='WEB' isSelected={tag === "WEB"} />
