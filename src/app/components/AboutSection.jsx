@@ -41,12 +41,13 @@ const TAB_DATA = [
 		id: "skills",
 		content: (
 			<ul className='list-disc pl-2'>
-				<li>C#, .net</li>
+				<li>Fullstack Web Development</li>
 				<li>HTML, JS, CSS</li>
 				<li>Rest API</li>
-				<li>NodeJS</li>
+				<li>NodeJS, C#, .net</li>
 				<li>React, NextJS, Angular</li>
-				<li>MSSQL, MySQL, MongoDB,</li>
+				<li>PostgreSQL,MSSQL, MySQL, MongoDB</li>
+				<li></li>
 			</ul>
 		),
 	},
