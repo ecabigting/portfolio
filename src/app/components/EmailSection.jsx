@@ -29,6 +29,9 @@ const EmailSection = () => {
 			const resData = await response.json();
 			if (response.status === 200) {
 				setEmailSubmitted(true);
+				e.target.email.value = "";
+				e.target.subject.value = "";
+				e.target.message.value = "";
 				console.log("Message sent.");
 			} else {
 				console.log("Failed!");
