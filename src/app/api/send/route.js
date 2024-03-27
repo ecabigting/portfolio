@@ -6,10 +6,9 @@ const fromEmail = process.env.FROM_EMAIL;
 export async function POST(req, res) {
 	const { email, subject, message } = await req.json();
 	try {
-		console.log(subject);
 		const data = await resend.emails.send({
 			from: fromEmail,
-			to: ["ericcabigting@outlook.com", "et.cabigting@gmail.com"],
+			to: ["thomas@ericcabigting.dev", "ericcabigting@outlook.com", "et.cabigting@gmail.com"],
 			subject: subject + " [from ericcabigting.dev]",
 			react: (
 				<>
