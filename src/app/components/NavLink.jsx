@@ -1,4 +1,4 @@
-import Link from "next/link";
+import React from "react";
 
 const NavLink = ({ target, title, hideMainOverLay }) => {
 	const handleOnClick = (e) => {
@@ -8,7 +8,6 @@ const NavLink = ({ target, title, hideMainOverLay }) => {
 		// elem?.scrollIntoView({
 		// 	behavior: "smooth",
 		// });
-		console.log(targetId);
 		window.scrollTo({
 			top: elem?.getBoundingClientRect().top + window.scrollY - 100,
 			behavior: "smooth",
