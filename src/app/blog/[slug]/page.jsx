@@ -2,11 +2,9 @@
 import { CalendarIcon } from "@heroicons/react/20/solid";
 import { PortableText } from "@portabletext/react";
 import { createClient } from "@sanity/client";
-import urlBuilder from "@sanity/image-url";
 import imageUrlBuilder from "@sanity/image-url";
 import React, { useEffect, useState } from "react";
 import { getImageDimensions } from "@sanity/asset-utils";
-import { useNextSanityImage } from "next-sanity-image";
 import Link from "next/link";
 
 const query = `*[_type == "post"][0...10]

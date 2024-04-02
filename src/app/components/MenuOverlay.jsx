@@ -1,5 +1,6 @@
 import React from "react";
 import NavLink from "./NavLink";
+import Link from "next/link";
 
 const MenuOverlay = ({ links, hideMainOverlay }) => {
 	return (
@@ -9,6 +10,11 @@ const MenuOverlay = ({ links, hideMainOverlay }) => {
 					<NavLink target={link.href} title={link.title} hideMainOverLay={hideMainOverlay} />
 				</li>
 			))}
+			<li className='border-b border-b-slate-50'>
+				<Link href='/blog' className='block py-2 pl-3 pr-4 text-[#ADB7BE] sm:text-xl rounded md:p-0 hover:text-white'>
+					blog
+				</Link>
+			</li>
 			<li className='border-b border-b-slate-50'>
 				<a
 					href='https://github.com/ecabigting'
