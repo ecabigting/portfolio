@@ -43,6 +43,12 @@ const portComp = {
 				/>
 			);
 		},
+		code: (props) => (
+			<pre data-language={props.value.language} className='text-sm mx-10 bg-gray-400 p-3'>
+				{/* {JSON.stringify(props)} */}
+				<code>{props.value.code}</code>
+			</pre>
+		),
 	},
 	block: {
 		h1: ({ children }) => <h1 className='text-4xl font-bold my-4'>{children}</h1>,
