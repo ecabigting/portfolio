@@ -120,9 +120,8 @@ export async function generateMetadata({ params }) {
 		description: foundPBody,
 		openGraph: {
 			title: postData[0].title + " | ecabigting",
-			description:
-				"With my experience in software development spanning over a decade.  I can help you navigate the confusing world of building your own custom software. From planning, designing, to deployment!",
-			url: "https://ericcabigting.dev",
+			description: foundPBody,
+			url: `https://ericcabigting.dev/blog/${theSlug}`,
 			siteName: "ecabigting - fullstack dev",
 			images: [
 				{
