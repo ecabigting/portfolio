@@ -95,13 +95,15 @@ export async function generateMetadata({ params }) {
 				findP.listItems === undefined &&
 				findP.children !== undefined &&
 				findP.children.find((obj) => {
-					return obj.text.length > 200 && obj.marks.length === 0;
+					return obj.text.length > 10 && obj.marks.length === 0;
 				})
 			);
 		})
 		.find((obj) => obj !== false && obj !== undefined)
 		.children.map((txt) => txt.text)
-		.join(" ");
+		.join(" ")
+		.substr(0, 150);
+	// console.dir(foundPBody, { dept: null });
 	return {
 		metadataBase: new URL("https://ericcabigting.dev"),
 		alternates: {
