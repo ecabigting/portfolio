@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
+"use server";
+import React from "react";
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
@@ -22,33 +22,18 @@ const client = createClient({
 });
 const builder = imageUrlBuilder(client);
 
-const Blog = () => {
-	///////////////////////////////////////
-	/// Loading site content fron Sanity
-	///////////////////////////////////////
-	const [postData, setPost] = useState();
-	const [loadingContentErrorMsg, setLoadingContentErrorMsg] = useState("");
-	const [isLoadingContent, setIsLoadingContent] = useState(true);
-
-	useEffect(() => {
-		client
-			.fetch(query)
-			.then((result) => {
-				setPost(result);
-				setIsLoadingContent(false);
-			})
-			.catch((err) => {
-				console.log(`error: ${err}`);
-				setPost(null);
-				setLoadingContentErrorMsg(err?.toString());
-				setIsLoadingContent(false);
-			});
-
-		return () => {
-			setIsLoadingContent(false);
-		};
-	}, []);
-
+const Blog = async () => {
+	let postData = undefined;
+	let loadingContentErrorMsg = "";
+	let isLoadingContent = true;
+	try {
+		postData = await client.fetch(query);
+		isLoadingContent = false;
+	} catch (eerr) {
+		console.log(eerr);
+		isLoadingContent = false;
+		loadingContentErrorMsg = JSON.stringify(eerr);
+	}
 	return (
 		<section id='blog' className='bg-gray-20'>
 			<div className='mx-auto w-full grid h-44 justify-center content-center bg-primary-100'>

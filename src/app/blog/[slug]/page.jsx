@@ -1,21 +1,11 @@
-"use client";
 import { CalendarIcon } from "@heroicons/react/20/solid";
 import { PortableText } from "@portabletext/react";
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getImageDimensions } from "@sanity/asset-utils";
 import Link from "next/link";
 
-const query = `*[_type == "post"][0...10]
-	 		{
-	             title,
-	             publishedAt,categories,
-	             "postSlug":slug.current,
-	             "postImage":mainImage.asset->url,
-	             "authorName":author->name,
-	             "authorImage":author->image.asset->url
-	         }`;
 const client = createClient({
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
 	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -44,8 +34,7 @@ const portComp = {
 			);
 		},
 		code: (props) => (
-			<pre data-language={props.value.language} className='text-sm mx-10 bg-gray-400 p-3'>
-				{/* {JSON.stringify(props)} */}
+			<pre data-language={props.value.language} className='text-sm md:mx-10 bg-gray-400 p-3 sm:mx-0'>
 				<code>{props.value.code}</code>
 			</pre>
 		),
@@ -80,15 +69,8 @@ const portComp = {
 	},
 };
 
-export default function BlogList({ params: { slug } }) {
-	const [postData, setPost] = useState();
-	const [loadingContentErrorMsg, setLoadingContentErrorMsg] = useState("");
-	const [isLoadingContent, setIsLoadingContent] = useState(true);
-
-	useEffect(() => {
-		client
-			.fetch(
-				`*[_type == "post" && slug.current == '${slug}']
+const BlogList = async ({ params: { slug } }) => {
+	const query = `*[_type == "post" && slug.current == '${slug}']
 					{
 						title,
 						publishedAt,
@@ -96,40 +78,40 @@ export default function BlogList({ params: { slug } }) {
 						"authorImage":author->image.asset->url,
 						"postImage":mainImage.asset->url,
 						body,
-					}`
-			)
-			.then((result) => {
-				setPost(result[0]);
-				setIsLoadingContent(false);
-			})
-			.catch((err) => {
-				console.log(`error: ${err}`);
-				setPost(null);
-				setLoadingContentErrorMsg(err?.toString());
-				setIsLoadingContent(false);
-			});
+					}`;
+	let postData = undefined;
+	let loadingContentErrorMsg = "";
+	let isLoadingContent = true;
+	try {
+		console.log(">>>>>>>>>>>>>> the slug" + slug);
+		postData = await client.fetch(query);
+		isLoadingContent = false;
+		console.log({ postData });
+	} catch (eerr) {
+		console.log(eerr);
+		isLoadingContent = false;
+		loadingContentErrorMsg = JSON.stringify(eerr);
+	}
 
-		return () => {
-			setIsLoadingContent(false);
-		};
-	}, []);
 	return (
 		<section id='post' className='bg-gray-20'>
 			<div className='mx-auto w-5/6 flex flex-col'>
 				{isLoadingContent === false && loadingContentErrorMsg === "" && postData !== undefined && (
 					<div className='mx-auto w-full pb-4'>
-						<img src={urlFor(postData.postImage)} className='' />
-						<h1 className='text-2xl pt-3'>{postData.title}</h1>
+						<img src={urlFor(postData[0].postImage)} className='' />
+						<h1 className='text-2xl pt-3'>{postData[0].title}</h1>
 						<div className='flex justify-start space-x-2 py-3'>
 							<CalendarIcon className='size-4' />
-							<p className='italic font-light text-xs'>{new Date(postData.publishedAt).toDateString()}</p>
-							<img src={postData.authorImage} className='rounded-full size-4 ' />
-							<p className='italic font-light text-xs'>{postData.authorName}</p>
+							<p className='italic font-light text-xs'>{new Date(postData[0].publishedAt).toDateString()}</p>
+							<img src={postData[0].authorImage} className='rounded-full size-4 ' />
+							<p className='italic font-light text-xs'>{postData[0].authorName}</p>
 						</div>
-						<PortableText value={postData.body} components={portComp} />
+						<PortableText value={postData[0].body} components={portComp} />
 					</div>
 				)}
 			</div>
 		</section>
 	);
-}
+};
+
+export default BlogList;
