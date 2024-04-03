@@ -87,6 +87,21 @@ const portComp = {
 export async function generateMetadata({ params }) {
 	const theSlug = params.slug;
 	postData = await client.fetch(query(theSlug));
+	let foundPBody = postData[0].body
+		.filter((findP) => {
+			return (
+				findP.style === "normal" &&
+				findP._type === "block" &&
+				findP.listItems === undefined &&
+				findP.children !== undefined &&
+				findP.children.find((obj) => {
+					return obj.text.length > 200 && obj.marks.length === 0;
+				})
+			);
+		})
+		.find((obj) => obj !== false && obj !== undefined)
+		.children.map((txt) => txt.text)
+		.join(" ");
 	return {
 		metadataBase: new URL("https://ericcabigting.dev"),
 		alternates: {
@@ -100,8 +115,7 @@ export async function generateMetadata({ params }) {
 				height: 600,
 			},
 		],
-		description:
-			"With my experience in software development spanning over a decade.  I can help you navigate the confusing world of building your own custom software. From planning, designing, to deployment!",
+		description: foundPBody,
 		openGraph: {
 			title: postData[0].title + " | ecabigting",
 			description:
@@ -123,10 +137,8 @@ export async function generateMetadata({ params }) {
 
 const BlogList = async ({ params: { slug } }) => {
 	try {
-		console.log(">>>>>>>>>>>>>> the slug" + slug);
 		postData = await client.fetch(query(slug));
 		isLoadingContent = false;
-		console.log({ postData });
 	} catch (eerr) {
 		console.log(eerr);
 		isLoadingContent = false;
