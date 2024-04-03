@@ -6,6 +6,21 @@ import React from "react";
 import { getImageDimensions } from "@sanity/asset-utils";
 import Link from "next/link";
 
+let postData = undefined;
+let loadingContentErrorMsg = "";
+let isLoadingContent = true;
+const query = (slug) => {
+	return `*[_type == "post" && slug.current == '${slug}']
+					{
+						title,
+						publishedAt,
+						"authorName":author->name,
+						"authorImage":author->image.asset->url,
+						"postImage":mainImage.asset->url,
+						body,
+					}`;
+};
+
 const client = createClient({
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
 	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -15,8 +30,8 @@ const client = createClient({
 
 const builder = imageUrlBuilder(client);
 
-const urlFor = (source) => {
-	return builder.image(source).height(500).width(1920).format("webp").fit("crop").url();
+const urlFor = (source, h, w) => {
+	return builder.image(source).height(h).width(w).format("webp").fit("crop").url();
 };
 
 const portComp = {
@@ -69,22 +84,47 @@ const portComp = {
 	},
 };
 
+export async function generateMetadata({ params }) {
+	const theSlug = params.slug;
+	postData = await client.fetch(query(theSlug));
+	return {
+		metadataBase: new URL("https://ericcabigting.dev"),
+		alternates: {
+			canonical: "/",
+		},
+		title: postData[0].title + " | ecabigting",
+		images: [
+			{
+				url: urlFor(postData[0].postImage, 600, 800),
+				width: 800,
+				height: 600,
+			},
+		],
+		description:
+			"With my experience in software development spanning over a decade.  I can help you navigate the confusing world of building your own custom software. From planning, designing, to deployment!",
+		openGraph: {
+			title: postData[0].title + " | ecabigting",
+			description:
+				"With my experience in software development spanning over a decade.  I can help you navigate the confusing world of building your own custom software. From planning, designing, to deployment!",
+			url: "https://ericcabigting.dev",
+			siteName: "ecabigting - fullstack dev",
+			images: [
+				{
+					url: urlFor(postData[0].postImage, 600, 800),
+					width: 800,
+					height: 600,
+				},
+			],
+			locale: "en_US",
+			type: "website",
+		},
+	};
+}
+
 const BlogList = async ({ params: { slug } }) => {
-	const query = `*[_type == "post" && slug.current == '${slug}']
-					{
-						title,
-						publishedAt,
-						"authorName":author->name,
-						"authorImage":author->image.asset->url,
-						"postImage":mainImage.asset->url,
-						body,
-					}`;
-	let postData = undefined;
-	let loadingContentErrorMsg = "";
-	let isLoadingContent = true;
 	try {
 		console.log(">>>>>>>>>>>>>> the slug" + slug);
-		postData = await client.fetch(query);
+		postData = await client.fetch(query(slug));
 		isLoadingContent = false;
 		console.log({ postData });
 	} catch (eerr) {
@@ -98,7 +138,7 @@ const BlogList = async ({ params: { slug } }) => {
 			<div className='mx-auto w-5/6 flex flex-col'>
 				{isLoadingContent === false && loadingContentErrorMsg === "" && postData !== undefined && (
 					<div className='mx-auto w-full pb-4'>
-						<img src={urlFor(postData[0].postImage)} className='' />
+						<img src={urlFor(postData[0].postImage, 500, 1920)} className='' />
 						<h1 className='text-2xl pt-3'>{postData[0].title}</h1>
 						<div className='flex justify-start space-x-2 py-3'>
 							<CalendarIcon className='size-4' />
