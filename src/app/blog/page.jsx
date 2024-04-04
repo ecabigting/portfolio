@@ -36,6 +36,7 @@ const Blog = async () => {
 	}
 	return (
 		<section id='blog' className='bg-gray-20'>
+			<div className='bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-orange-900 to-transparent rounded-full h-80 w-80 z-0 top-32 blur-lg absolute transform -translate-x-1/2 -translate-1/2 -right-10'></div>
 			<div className='mx-auto w-full grid h-44 justify-center content-center bg-primary-100'>
 				<h1 className='text-3xl font-black text-white'>BLOG</h1>
 			</div>
