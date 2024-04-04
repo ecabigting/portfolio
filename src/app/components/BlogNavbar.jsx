@@ -4,23 +4,9 @@ import React, { useState } from "react";
 import NavLink from "./NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
+import BlogMenuOverlay from "./BlogMenuOverlay";
 
-const navLinks = [
-	{
-		title: "about",
-		href: "#about",
-	},
-	{
-		title: "projects",
-		href: "#projects",
-	},
-	{
-		title: "contact",
-		href: "#email",
-	},
-];
-
-const Navbar = () => {
+const BlogNavbar = () => {
 	const [navBarOpen, setNavbarOpen] = useState(false);
 	return (
 		<nav className='fixed top-0 left-0 right-0 z-10 bg-[#121212]'>
@@ -47,11 +33,25 @@ const Navbar = () => {
 				</div>
 				<div className='menu hidden md:block md:w-auto' id='navbar'>
 					<ul className='flex p4 md:p-0 md:flex-row md:space-x-8 mt-0'>
-						{navLinks.map((link, index) => (
-							<li key={index}>
-								<NavLink target={link.href} title={link.title} hideMainOverLay={() => setNavbarOpen(false)} />
-							</li>
-						))}
+						<li>
+							<Link
+								href='/#about'
+								className='block py-2 pl-3 pr-4 text-[#ADB7BE] sm:text-xl rounded md:p-0 hover:text-white'
+							>
+								about
+							</Link>
+						</li>
+						<li>
+							<Link
+								href='/#projects'
+								className='block py-2 pl-3 pr-4 text-[#ADB7BE] sm:text-xl rounded md:p-0 hover:text-white'
+							>
+								projects
+							</Link>
+						</li>
+						<li>
+							<NavLink target='email' title='contact' hideMainOverLay={() => setNavbarOpen(false)} />
+						</li>
 						<li>
 							<Link
 								href='/blog'
@@ -71,9 +71,9 @@ const Navbar = () => {
 					</ul>
 				</div>
 			</div>
-			{navBarOpen ? <MenuOverlay links={navLinks} hideMainOverLay={() => setNavbarOpen(false)} /> : null}
+			{navBarOpen ? <BlogMenuOverlay hideMainOverlay={() => setNavbarOpen(false)} /> : null}
 		</nav>
 	);
 };
 
-export default Navbar;
+export default BlogNavbar;
