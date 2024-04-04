@@ -2,12 +2,12 @@ import React from "react";
 import NavLink from "./NavLink";
 import Link from "next/link";
 
-const MenuOverlay = ({ links, hideMainOverlay }) => {
+const MenuOverlay = ({ links, hideMainOverLay }) => {
 	return (
 		<ul className='flex flex-col py-4 items-center'>
 			{links.map((link, index) => (
 				<li key={index} className='border-b border-b-slate-50'>
-					<NavLink target={link.href} title={link.title} hideMainOverLay={hideMainOverlay} />
+					<NavLink target={link.href} title={link.title} hideMainOverLay={hideMainOverLay} />
 				</li>
 			))}
 			<li className='border-b border-b-slate-50'>

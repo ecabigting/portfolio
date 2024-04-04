@@ -65,7 +65,6 @@ export default function RootLayout({ children }) {
 			/>
 			<body className={inter.className}>
 				<main className='flex min-h-screen flex-col bg-[#121212] '>
-					<Navbar />
 					<div className='mt-24 p-4 py-4'>{children}</div>
 					<EmailSection />
 					<Footer />
