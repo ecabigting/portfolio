@@ -42,7 +42,7 @@ export const HeroSection = () => {
 						/>
 					</h1>
 					<p className='text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
-						I&apos;m a Digital Product Manager for{" "}
+						I&apos;m a Full Stack Developer for{" "}
 						<Link href='https://www.digital-qube.com/' className='underline'>
 							{" "}
 							Digital Qube
