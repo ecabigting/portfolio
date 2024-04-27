@@ -11,7 +11,8 @@ const inter = Inter({
 
 export const contenType = "image/png";
 
-export default async function Image() {
+export default async function OGImage() {
+	console.log();
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
@@ -29,7 +30,7 @@ export default async function Image() {
 					backgroundRepeat: "no-repeat",
 					backgroundPosition: "350px 65px",
 					backgroundSize: "cover",
-					backgroundImage: `url(${websiteURL}images/actual-hero-image.png)`,
+					backgroundImage: `url(https://ericcabigting.dev/images/actual-hero-image.png)`,
 				}}
 			></div>
 		),
