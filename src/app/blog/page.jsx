@@ -5,7 +5,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 
-const query = `*[_type == "post" && !(_id in path("drafts.**"))][0...30]
+const query = `*[_type == "post" && !(_id in path("drafts.**"))][0...30] | order(publishedAt desc)
 	 		{
 	             title,
 	             publishedAt,categories,
