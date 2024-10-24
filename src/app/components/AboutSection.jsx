@@ -102,11 +102,11 @@ const AboutSection = () => {
             about me
           </h2>
           <p className='text-base md:text-lg mb-3'>
-            Hey there! I'm Eric, a full-stack developer with a deep understanding of software development. I've spent over a decade crafting efficient, scalable applications using a diverse range of technologies, including Golang, C#.NET, TypeScript, JavaScript, and ReactJS. My expertise extends to databases like PostgreSQL, MongoDB, MSSQL, and MySQL, ensuring I can handle data management with precision. From writing clean code to overseeing seamless deployments, I'm committed to delivering high-quality software solutions.
+            Hey there! I&apos;m Eric, a full-stack developer with a deep understanding of software development. I have spent over a decade crafting efficient, scalable applications using a diverse range of technologies, including Golang, C#.NET, TypeScript, JavaScript, and ReactJS. My expertise extends to databases like PostgreSQL, MongoDB, MSSQL, and MySQL, ensuring I can handle data management with precision. From writing clean code to overseeing seamless deployments, I&apos;m committed to delivering high-quality software solutions.
           </p>
 
           <p className='text-base md:text-lg'>
-            Throughout my career, I've had the privilege of working on projects across various industries, including government, hospitality, and e-commerce. This diverse experience has allowed me to develop a strong understanding of different business needs and tailor my approach accordingly. Whether it's building secure systems for government agencies, creating user-friendly interfaces for hospitality businesses, or optimizing online platforms for e-commerce, I'm equipped to deliver solutions that drive results.
+            Throughout my career, I&apos;ve had the privilege of working on projects across various industries, including government, hospitality, and e-commerce. This diverse experience has allowed me to develop a strong understanding of different business needs and tailor my approach accordingly. Whether it&apos;s building secure systems for government agencies, creating user-friendly interfaces for hospitality businesses, or optimizing online platforms for e-commerce, I am equipped to deliver solutions that drive results.
           </p>
 
           <div className='flex flex-row mt-8'>
