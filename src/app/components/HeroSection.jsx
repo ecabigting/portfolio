@@ -58,7 +58,7 @@ export const HeroSection = () => {
             >
               Let&apos;s talk!
             </button>
-            <Link href='/EricThomasDCabitingCV.pdf' download target='_blank'>
+            <a href='/EricThomasDCabitingCV.pdf' download='/EricThomasDCabitingCV.pdf' target='_blank'>
               <button
                 className='px-1 py-1 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
@@ -66,7 +66,7 @@ export const HeroSection = () => {
               >
                 <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-3'>Download CV!</span>
               </button>
-            </Link>
+            </a>
           </div>
         </motion.div>
         <div className='col-span-5 place-self-center mt-4 lg:mt-0'>
