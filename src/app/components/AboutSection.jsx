@@ -27,7 +27,7 @@ const TAB_DATA = [
           <p className='text-xs font-extralight'>Abu Dhabi, United Arab Emirates</p>
         </li>
         <li className='underline last:list-none mt-4'>
-          <a href='/EricThomasDizonCabiting.pdf' target='_blank' download='/EricThomasDizonCabiting.pdf'>
+          <a href='/EricThomasDizonCabigting.pdf' target='_blank' download='/EricThomasDizonCabigting.pdf'>
             View full Resume
           </a>
         </li>
