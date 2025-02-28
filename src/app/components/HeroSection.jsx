@@ -58,7 +58,7 @@ export const HeroSection = () => {
             >
               Let&apos;s talk!
             </button>
-            <a href='/EricThomasDCabitingCV.pdf' download='/EricThomasDCabitingCV.pdf' target='_blank'>
+            <a href='/EricThomasDizonCabigting.pdf' download='/EricThomasDizonCabiting.pdf' target='_blank'>
               <button
                 className='px-1 py-1 w-full sm:w-fit rounded-full 
             bg-gradient-to-br from-red-500 via-white-500 to-yellow-500 
