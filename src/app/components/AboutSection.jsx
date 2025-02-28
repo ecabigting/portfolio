@@ -1,9 +1,7 @@
 "use client";
 import React, { useState, useTransition } from "react";
 import TabButton from "./TabButton";
-import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 const TAB_DATA = [
   {
@@ -29,9 +27,9 @@ const TAB_DATA = [
           <p className='text-xs font-extralight'>Abu Dhabi, United Arab Emirates</p>
         </li>
         <li className='underline last:list-none mt-4'>
-          <Link href='/EricThomasDCabitingCV.pdf' target='_blank' download>
+          <a href='/EricThomasDizonCabiting.pdf' target='_blank' download='/EricThomasDizonCabiting.pdf'>
             View full Resume
-          </Link>
+          </a>
         </li>
       </ul>
     ),
