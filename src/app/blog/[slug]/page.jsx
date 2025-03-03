@@ -6,7 +6,7 @@ import React from "react";
 import { getImageDimensions } from "@sanity/asset-utils";
 import Link from "next/link";
 import CodeBlock from "@/app/components/CodeBlock";
-
+export const dynamic = 'force-dynamic'
 let postData = undefined;
 let loadingContentErrorMsg = "";
 let isLoadingContent = true;
