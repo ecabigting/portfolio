@@ -8,7 +8,7 @@ import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 const query = `*[_type == "post" && !(_id in path("drafts.**"))][0...30] | order(publishedAt desc)
 	 		{
 	             title,
-	             publishedAt,categories,
+	             publishedAt,
 	             "postSlug":slug.current,
 	             "postImage":mainImage.asset->url,
 	             "authorName":author->name,
@@ -22,6 +22,8 @@ const client = createClient({
   apiVersion: new Date().toISOString().split('T')[0],
 });
 const builder = imageUrlBuilder(client);
+
+export const dynamic = 'force-dynamic'
 
 const Blog = async () => {
   let postData = undefined;
@@ -38,9 +40,13 @@ const Blog = async () => {
   return (
     <section id='blog' className='bg-gray-20'>
       <div className='bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-orange-900 to-transparent rounded-full h-80 w-80 z-0 top-32 blur-lg absolute transform -translate-x-1/2 -translate-1/2 -right-10'></div>
-      <div className='mx-auto w-full grid h-44 justify-center content-center bg-primary-100'>
+      <div className='mx-auto w-full grid justify-center content-center bg-primary-100'>
         <h1 className='text-3xl font-black text-white'>BLOG</h1>
       </div>
+      <div className='mx-auto w-full grid justify-center content-center bg-primary-100 mb-10'>
+        <h4 className='text-1xl italic text-white'>Write that down. --some guy probably</h4>
+      </div>
+
       <div className='mx-auto w-5/6 grid grid-cols-1 md:grid-cols-3 justify-start content-center py-5 gap-6'>
         {isLoadingContent === false &&
           loadingContentErrorMsg === "" &&
