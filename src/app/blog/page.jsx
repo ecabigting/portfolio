@@ -23,14 +23,13 @@ const client = createClient({
 });
 const builder = imageUrlBuilder(client);
 
-export const dynamic = 'force-dynamic'
 
 const Blog = async () => {
   let postData = undefined;
   let loadingContentErrorMsg = "";
   let isLoadingContent = true;
   try {
-    postData = await client.fetch(query);
+    postData = await client.fetch(query, { next: { revalidate: 1800 } });
     isLoadingContent = false;
   } catch (eerr) {
     console.log(eerr);
