@@ -29,7 +29,7 @@ const Blog = async () => {
   let loadingContentErrorMsg = "";
   let isLoadingContent = true;
   try {
-    postData = await client.fetch(query, {}, { next: { revalidate: 900 } });
+    postData = await client.fetch(query, {}, { next: { revalidate: 82800 } });
     isLoadingContent = false;
   } catch (eerr) {
     console.log(eerr);

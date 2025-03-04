@@ -85,7 +85,7 @@ const portComp = {
 
 export async function generateMetadata({ params }) {
   const theSlug = params.slug;
-  postData = await client.fetch(query(theSlug)), {}, { next: { revalidate: 900 } };
+  postData = await client.fetch(query(theSlug)), {}, { next: { revalidate: 82800 } };
   let foundPBody = postData[0].body
     .filter((findP) => {
       return (
