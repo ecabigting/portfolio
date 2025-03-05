@@ -56,7 +56,7 @@ const portComp = {
   },
   block: {
     h1: ({ children }) => <h1 className='text-4xl font-bold my-4'>{children}</h1>,
-
+    code: ({ children }) => <code className="bg-[#727272] rounded-lg p-[2px] font-monospace">{children}</code>,
     blockquote: ({ children }) => (
       <blockquote className='border-l-4 pl-4 my-4 italic text-gray-700 border-gray-300'>{children}</blockquote>
     ),
