@@ -6,6 +6,7 @@ import React from "react";
 import { getImageDimensions } from "@sanity/asset-utils";
 import Link from "next/link";
 import CodeBlock from "@/app/components/CodeBlock";
+import Image from "next/image";
 export const dynamic = 'force-dynamic'
 let postData = undefined;
 let loadingContentErrorMsg = "";
@@ -40,12 +41,14 @@ const portComp = {
     image: ({ value, isInline }) => {
       const { width, height } = getImageDimensions(value);
       return (
-        <img
+        <Image
           src={builder.image(value).url()}
           alt={value.alt || " "}
           loading='lazy'
           className={`my-2 md:my-8 mx-auto ${isInline ? "max-w-xs" : "w-full sm:w-1/2"} shadow-lg`}
           style={{ aspectRatio: width / height }}
+          width={width}
+          height={height}
         />
       );
     },
@@ -150,12 +153,12 @@ const BlogList = async ({ params: { slug } }) => {
       <div className='mx-auto w-5/6 flex flex-col'>
         {isLoadingContent === false && loadingContentErrorMsg === "" && postData !== undefined && (
           <div className='mx-auto w-full pb-4'>
-            <img src={urlFor(postData[0].postImage, 500, 1920)} className='' />
+            <Image src={urlFor(postData[0].postImage, 500, 1920)} width={1920} height={500} className='' alt="Post Image" />
             <h1 className='text-2xl pt-3'>{postData[0].title}</h1>
             <div className='flex justify-start space-x-2 py-3'>
               <CalendarIcon className='size-4' />
               <p className='italic font-light text-xs'>{new Date(postData[0].publishedAt).toDateString()}</p>
-              <img src={postData[0].authorImage} className='rounded-full size-4 ' />
+              <Image src={postData[0].authorImage} className='rounded-full size-4 ' height={50} width={50} alt="Post Section Image" />
               <p className='italic font-light text-xs'>{postData[0].authorName}</p>
             </div>
             <PortableText value={postData[0].body} components={portComp} />

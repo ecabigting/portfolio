@@ -4,6 +4,7 @@ import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 const query = `*[_type == "post" && !(_id in path("drafts.**"))][0...30] | order(publishedAt desc)
 	 		{
@@ -54,7 +55,7 @@ const Blog = async () => {
             return (
               <div key={index} className='w-full rounded-md border-2 border-slate-400 relative'>
                 <div className='md:shrink-0'>
-                  <img className='object-cover w-full h-[100px] lg:h-[200px]' src={urlFor(post.postImage)} />
+                  <Image width={1000} height={200} className='object-cover w-full h-[100px] lg:h-[200px]' alt="Blog Post Image" src={urlFor(post.postImage)} />
                 </div>
                 <div className='p-2 min-h-[150px]'>
                   <p className='font-extralight italic text-xs flex '>
@@ -64,8 +65,8 @@ const Blog = async () => {
                   <h2 className='text-sm py-2'>{post.title}</h2>
                   {/* <p className='font-extralight italic text-xs py-3'>{post.authorName}</p> */}
                 </div>
-                <div className='w-full bg-gray-400 flex bottom-0 absolute'>
-                  <Link className='ml-3 p-1 text-xs text-white underline' href={`/blog/${post.postSlug}`}>
+                <div className='w-full bg-gray-600 flex bottom-0 absolute'>
+                  <Link className='ml-3 p-1 text-xs text-white underline font-bold' href={`/blog/${post.postSlug}`}>
                     Read More
                   </Link>
                 </div>
