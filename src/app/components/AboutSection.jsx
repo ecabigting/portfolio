@@ -10,7 +10,15 @@ const TAB_DATA = [
     content: (
       <ul className='list-disc pl-2 '>
         <li>
-          <h3 className='text-md font-bold'>Senoir Full Stack Engineer (Jul 2021 - Present)</h3>
+          <h3 className='text-md font-bold'>Senoir Full Stack Engineer (Dec 2025 - Present)</h3>
+          <p className='text-sm font-light'>
+            Inception a G42 Company
+          </p>
+          <p className='text-xs font-extralight'>Abu Dhabi, United Arab Emirates</p>
+        </li>
+
+        <li>
+          <h3 className='text-md font-bold'>Senoir Full Stack Engineer (Jul 2021 - Nov 2025)</h3>
           <p className='text-sm font-light'>
             Digital Qube Marketing Consultancy (formerly eWavelength Digital Marketing)
           </p>

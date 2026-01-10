@@ -43,9 +43,9 @@ export const HeroSection = () => {
           </h1>
           <p className='text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
             I&apos;m a Full Stack Developer at{" "}
-            <Link href='https://www.digital-qube.com/' className='underline'>
+            <Link href='https://inceptionai.ai/' className='underline'>
               {" "}
-              Digital Qube
+              Inception a G42 Company
             </Link>{" "}
             in Abu Dhabi, UAE. I have a passion for back-end development and building functionally rich software.
           </p>
