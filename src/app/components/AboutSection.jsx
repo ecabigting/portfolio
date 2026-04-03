@@ -47,8 +47,8 @@ const TAB_DATA = [
     id: "skills",
     content: (
       <ul className='list-disc pl-2'>
-
-        <li> Go Lang, C#, JavaScript, SQL, CSS, PHP, TypeScript, HTML</li>
+        <li> RAG, MCP, LLMs</li>
+        <li> Python, Go Lang, C#, JavaScript, SQL, CSS, PHP, TypeScript, HTML</li>
         <li> ASP.NET Core, .NET Framework, NestJS, NextJS, Echo, Fibre, Gin, ASP.NET Web API, Umbraco, Sitecore</li>
         <li> React, jQuery, VueJS, NodeJS, ExpressJS, React Native, Redux</li>
         <li> Git, Docker, VSCode, Visual Studio, npm, shadcn/ui, Node, Neovim</li>
@@ -57,7 +57,6 @@ const TAB_DATA = [
         <li> OpenID, OAuth, JWT, Single Sign-On (SSO), Authorization, Authentication</li>
         <li> Database Migration, Backup and Restore</li>
         <li> Project Management, Communication, Leadership, Organization, Problem-solving</li>
-
         <li>Fullstack Web Development</li>
         <li>HTML, JS, CSS</li>
         <li>Rest API</li>
@@ -108,7 +107,8 @@ const AboutSection = () => {
             about me
           </h2>
           <p className='text-base md:text-lg mb-3'>
-            Hey there! I&apos;m Eric, a full-stack developer with a deep understanding of software development. I have spent over a decade crafting efficient, scalable applications using a diverse range of technologies, including Golang, C#.NET, TypeScript, JavaScript, and ReactJS. My expertise extends to databases like PostgreSQL, MongoDB, MSSQL, and MySQL, ensuring I can handle data management with precision. From writing clean code to overseeing seamless deployments, I&apos;m committed to delivering high-quality software solutions.
+            {/* Hey there! I&apos;m Eric, a Lead full-stack developer with a deep understanding of software development. I have spent over a decade crafting efficient, scalable applications using a diverse range of technologies, including Golang, C#.NET, TypeScript, JavaScript, and ReactJS. My expertise extends to databases like PostgreSQL, MongoDB, MSSQL, and MySQL, ensuring I can handle data management with precision. From writing clean code to overseeing seamless deployments, I&apos;m committed to delivering high-quality software solutions. */}
+            Hey there! I am Eric, an Engineering Lead at the intersection of high-scale backend architecture and Sovereign AI innovation. Currently at Inception (G42), I lead the development of intelligent, context-aware systems—leveraging LLMs, RAG, and MCP to bridge the gap between enterprise data and foundational models. With over a decade of experience across Python, TypeScript, Go, and C#, I specialize in architecting secure, high-availability platforms that turn complex data into actionable intelligence. I don't just ship code; I build the infrastructure for the next generation of AI.
           </p>
 
           <p className='text-base md:text-lg'>
