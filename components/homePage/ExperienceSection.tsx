@@ -32,6 +32,7 @@ export default function ExperienceSection({
             width={800}
             height={1200}
             className="h-full w-full object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
         {/* Right: Experience List */}
