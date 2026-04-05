@@ -15,6 +15,7 @@ export interface SiteSettings {
   currentStatus: 'open-to-work' | 'open-to-freelance' | 'open-to-fulltime' | 'not-available' | null;
   email: string | null;
   phone: string | null;
+  experienceBanner: string | null,
   cvLink: string | null;
   githubLink: string | null;
   linkedinLink: string | null;
@@ -27,7 +28,8 @@ export interface SiteSettings {
   experience: Array<{
     role: string | null;
     company: string | null;
-
+    location: string | null;
+    companyUrl: string | null
   }> | null;
   socialLinks: Array<{
     platform: string | null;
@@ -43,6 +45,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     mainTitle,
     subTitle,
     "profileImage": profileImage.asset->url,
+    "experienceBanner": experienceBanner.asset->url,
     aboutMe,
     location,
     currentStatus,
@@ -60,7 +63,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     "experience": experience[]{
       role,
       company,
-      location
+      location,
+      companyUrl
     },
     "socialLinks": socialLinks[]{
       platform,
@@ -84,6 +88,21 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     skills: [],
     certifications: [],
     experience: [],
-    socialLinks: []
+    socialLinks: [],
+    experienceBanner: null
   };
+}
+
+export interface Project {
+  title: string | null;
+  link: string | null;
+}
+
+export async function getProjects(): Promise<Project[]> {
+  const query = `*[_type == "project"] | order(date desc) {
+    title,
+    link
+  }`;
+  const data = await client.fetch(query);
+  return data || [];
 }

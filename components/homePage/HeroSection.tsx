@@ -15,11 +15,16 @@ export default function HeroSection({
   profileImage
 }: HeroSectionProps) {
   return (
-    <section className="flex flex-col items-center gap-8 py-12 md:flex-row md:justify-between md:py-24">
+    <section className="flex flex-col items-center gap-8 py-6 md:flex-row md:justify-between md:py-12">
       {/* 1. Content Area (Stacked on Mobile) */}
       <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl">
-          {title ?? "Hi, I'm Eric"}
+          <span
+            className='text-transparent bg-clip-text bg-linear-to-r from-red-400 
+            via-white-400 to-yellow-400 mr-4 bg-white'
+          >
+            {title ?? "Hi, I'm Eric"}
+          </span>
         </h1>
 
         <p className="mt-6 max-w-lg text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -30,9 +35,14 @@ export default function HeroSection({
           {email && (
             <a
               href={`mailto:${email}`}
-              className="inline-flex h-12 items-center justify-center rounded-full bg-zinc-900 px-8 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
-              Say hi!
+              <button
+                className='px-6 py-3 w-full sm:w-fit rounded-full 
+            bg-linear-to-br from-red-500 via-white-500 to-yellow-500 
+            mr-4 bg-white hover:bg-slate-200 text-white font-bold'
+              >
+                Say hi!
+              </button>
             </a>
           )}
 
@@ -41,23 +51,31 @@ export default function HeroSection({
               href={cvLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-zinc-200 px-8 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
-              My CV
+              <button
+                className='px-1 py-1 w-full sm:w-fit rounded-full 
+            bg-linear-to-br from-red-500 via-white-500 to-yellow-500 
+            hover:bg-slate-800 text-white font-bold'
+              >
+                <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-2'>Download CV!</span>
+              </button>
             </a>
           )}
         </div>
       </div>
       {/* 3. Profile Image (Last in order on Mobile, Right side on Desktop) */}
-      <div className="relative h-64 w-64 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-zinc-900 md:h-80 md:w-80">
-        <Image
-          src={profileImage ?? "/images/actual-hero-image.webp"}
-          alt={title ?? "Profile Image"}
-          fill
-          priority
-          className="object-cover scale-110"
-          sizes="(max-width: 768px) 256px, 320px"
-        />
+      <div className='col-span-5 place-self-center mt-4 lg:mt-0'>
+        <div className='rounded-full w-62.5 h-62.5 lg:w-62.5 lg:h-62.5 relative mt-4
+            bg-linear-to-r from-red-400 via-white-400 to-yellow-400 bg-[#181818] '>
+          <Image
+            src={profileImage ?? "/images/actual-hero-image.webp"}
+            alt={title ?? "Profile Image"}
+            fill
+            priority
+            className='rounded-full object-cover'
+            sizes="(max-width: 768px) 256px, 320px"
+          />
+        </div>
       </div>
     </section>
   );
