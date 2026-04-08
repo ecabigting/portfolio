@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { PortableText } from "@portabletext/react";
 interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -20,6 +21,7 @@ export default async function PostPage({ params }: PostPageProps) {
       >
         ← Back to Blog
       </Link>
+
       <header className="mb-8">
         {post.categories && post.categories.length > 0 && (
           <div className="flex gap-2 mb-4">
@@ -64,9 +66,12 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       )}
       <div className="prose prose-zinc dark:prose-invert max-w-none">
-        <p className="text-zinc-600 dark:text-zinc-400">
-          No posts.
-        </p>
+        {post.body ? (
+          <PortableText value={post.body} />) : (
+          <p className="text-zinc-600 dark:text-zinc-400">
+            No content available for this post.
+          </p>
+        )}
       </div>
     </article>
   );

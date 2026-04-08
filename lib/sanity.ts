@@ -1,4 +1,4 @@
-import { createClient } from "next-sanity";
+import { createClient, type PortableTextBlock } from "next-sanity";
 import { cacheLife } from "next/cache";
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
@@ -9,7 +9,7 @@ export const client = createClient({
 // Define the interface based on your siteSettings schema
 export interface SiteSettings {
   mainTitle: string | null;
-  subTitle: string | null;
+  subTitle: string | null,
   profileImage: string | null; // Projected to URL string
   aboutMe: string | null;
   location: string | null;
@@ -154,7 +154,7 @@ export interface BlogPost {
 export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]> {
   'use cache'
   cacheLife('hours')
-  const query = `*[_type == "post"] | order(publishedAt desc) [0...${limit}] {
+  const query = `*[_type == "post" && featured == true ] | order(publishedAt desc) [0...${limit}] {
     _id,
     title,
     "slug": slug.current,
@@ -171,7 +171,7 @@ export interface BlogPostListItem {
   title: string | null;
   slug: string | null;
   publishedAt: string | null;
-  body: unknown[] | null;
+  body: PortableTextBlock[] | null;
 }
 // Get total blog post count
 export async function getBlogPostCount(): Promise<number> {
@@ -222,7 +222,7 @@ export interface Post {
   slug: string | null;
   publishedAt: string | null;
   mainImage: string | null;
-  body: unknown[] | null;
+  body: PortableTextBlock[] | null;
   categories: Array<{ title: string | null }> | null;
   author: { name: string | null } | null;
 }

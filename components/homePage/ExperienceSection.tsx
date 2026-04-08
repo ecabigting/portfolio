@@ -20,7 +20,7 @@ export default function ExperienceSection({
           className='text-transparent bg-clip-text bg-linear-to-r from-red-400 
             via-white-400 to-yellow-400 mr-4 bg-white'
         >
-          Working with the best teams.
+          Worked with the best teams.
         </span>
       </h2>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">

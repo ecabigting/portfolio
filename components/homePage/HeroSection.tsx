@@ -34,7 +34,7 @@ export default function HeroSection({
         <div className="mt-10 flex flex-col w-full gap-4 sm:flex-row sm:justify-center md:justify-start">
           {email && (
             <a
-              href={`mailto:${email}`}
+              href={`mailto:${email}?subject=Testing out mailto!`}
             >
               <button
                 className='px-6 py-3 w-full sm:w-fit rounded-full 
@@ -57,7 +57,8 @@ export default function HeroSection({
             bg-linear-to-br from-red-500 via-white-500 to-yellow-500 
             hover:bg-slate-800 text-white font-bold'
               >
-                <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-2'>Download CV!</span>
+                <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-2'>
+                  Download my CV!</span>
               </button>
             </a>
           )}

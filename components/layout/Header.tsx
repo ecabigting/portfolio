@@ -3,9 +3,9 @@ import MobileNav from "./MobileNav";
 // Single Source of Truth for navigation
 const navLinks = [
   { href: "/blog", label: "blog" },
-  { href: "/projects", label: "projects" },
-  { href: "/about", label: "about" },
-  { href: "/contact", label: "contact" },
+  // { href: "/projects", label: "projects" },
+  // { href: "/about", label: "about" },
+  // { href: "/contact", label: "contact" },
 ];
 export default function Header() {
   return (
@@ -15,8 +15,7 @@ export default function Header() {
           ecabigting
         </Link>
 
-        {/* Desktop Nav: Looping through SSoT */}
-        <nav className="hidden gap-6 md:flex">
+        <nav className="flex gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -27,8 +26,7 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        {/* Pass the array as a prop to the Client Component */}
-        <MobileNav links={navLinks} />
+        {/* <MobileNav links={navLinks} /> */}
       </div>
     </header>
   );
