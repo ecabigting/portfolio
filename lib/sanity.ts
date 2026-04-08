@@ -1,4 +1,5 @@
 import { createClient } from "next-sanity";
+import { cacheLife } from "next/cache";
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -41,6 +42,8 @@ export interface SiteSettings {
  * Can be called from any Server Component.
  */
 export async function getSiteSettings(): Promise<SiteSettings> {
+  'use cache'
+  cacheLife('hours')
   const query = `*[_type == "siteSettings"][0]{
     mainTitle,
     subTitle,
@@ -93,12 +96,42 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   };
 }
 
+export interface FooterContent {
+  location: string | null,
+  currentStatus: string | null,
+  email: string | null,
+  phone: string | null,
+  cvLink: string | null,
+  githubLink: string | null,
+  linkedinLink: string | null,
+  year: string | null
+}
+
+export async function getFooterContent(): Promise<FooterContent> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "siteSettings"][0]{
+    location,
+    currentStatus,
+    email,
+    phone,
+    cvLink,
+    githubLink,
+    linkedinLink,
+    "year": now()
+  }`;
+  const footerData = await client.fetch(query);
+  return footerData || [];
+}
+
 export interface Project {
   title: string | null;
   link: string | null;
 }
 
 export async function getProjects(): Promise<Project[]> {
+  'use cache'
+  cacheLife('hours')
   const query = `*[_type == "project"] | order(date desc) {
     title,
     link
