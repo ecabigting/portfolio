@@ -2,16 +2,7 @@ import { headers } from "next/headers";
 interface SkillsSectionProps {
   skills: string[] | null;
 }
-const BORDER_COLORS = [
-  "border-red-600",
-  "border-red-500",
-  "border-orange-500",
-  "border-orange-400",
-  "border-amber-500",
-  "border-amber-400",
-  "border-yellow-500",
-  "border-yellow-300",
-];
+
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -20,9 +11,7 @@ function shuffleArray<T>(array: T[]): T[] {
   }
   return shuffled;
 }
-function getBorderByIndex(index: number): string {
-  return BORDER_COLORS[index % BORDER_COLORS.length];
-}
+
 export default async function SkillsSection({ skills }: SkillsSectionProps) {
   await headers(); // Satisfy Next.js requirement
 
@@ -40,7 +29,8 @@ export default async function SkillsSection({ skills }: SkillsSectionProps) {
         {shuffledSkills.map((skill, index) => (
           <div
             key={`${skill}-${index}`}
-            className={`px-3 py-1 rounded-md bg-zinc-950 border-l-4 ${getBorderByIndex(index)}`}
+            className={`px-3 py-1 rounded-md bg-zinc-700`}
+          // className={`px-3 py-1 rounded-md bg-zinc-950 border-l-4 ${getBorderByIndex(index)}`}
           >
             <span className="text-sm font-medium text-white ">
               {skill}

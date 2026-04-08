@@ -27,7 +27,7 @@ export default function ExperienceSection({
         {/* Left: Banner Image */}
         <div className="relative w-full overflow-hidden rounded-lg">
           <Image
-            src={experienceBanner ?? "/images/experience-banner.webp"}
+            src={experienceBanner ?? "/images/experience-banner3.webp"}
             alt="Experience"
             width={800}
             height={1200}

@@ -139,3 +139,79 @@ export async function getProjects(): Promise<Project[]> {
   const data = await client.fetch(query);
   return data || [];
 }
+
+
+// Blog post for home page cards
+export interface BlogPost {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  mainImage: string | null;
+  categories: Array<{ title: string | null }> | null;
+}
+// Get recent posts for home page
+export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "post"] | order(publishedAt desc) [0...${limit}] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    "mainImage": mainImage.asset->url,
+    "categories": categories[]->{ title }
+  }`;
+  const data = await client.fetch(query);
+  return data || [];
+}
+// Blog list item (for pagination)
+export interface BlogPostListItem {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  body: unknown[] | null;
+}
+// Get total blog post count
+export async function getBlogPostCount(): Promise<number> {
+  'use cache'
+  cacheLife('hours')
+  const query = `count(*[_type == "post"])`;
+  const result = await client.fetch(query);
+  return typeof result === 'number' ? result : 0;
+}
+// Get paginated blog posts
+export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10): Promise<BlogPostListItem[]> {
+  'use cache'
+  cacheLife('hours')
+  const start = (page - 1) * limit;
+  const query = `*[_type == "post"] | order(publishedAt desc) [${start}...${start + limit}] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    body
+  }`;
+  const data = await client.fetch(query);
+  return data || [];
+}
+// Extract plain text excerpt from body
+export function extractExcerpt(body: unknown[] | null, maxLength: number = 200): string {
+  if (!body || !Array.isArray(body) || body.length === 0) return "";
+  let text = "";
+  for (const block of body) {
+    if (typeof block === 'object' && block !== null && 'children' in block) {
+      const children = (block as { children?: Array<{ text?: string }> }).children;
+      if (Array.isArray(children)) {
+        for (const child of children) {
+          if (child.text) text += child.text + " ";
+        }
+      }
+    }
+    if (text.length >= maxLength) break;
+  }
+  return text.length > maxLength
+    ? text.substring(0, maxLength).trim() + "..."
+    : text.trim();
+}
