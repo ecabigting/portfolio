@@ -215,3 +215,39 @@ export function extractExcerpt(body: unknown[] | null, maxLength: number = 200):
     ? text.substring(0, maxLength).trim() + "..."
     : text.trim();
 }
+
+export interface Post {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  mainImage: string | null;
+  body: unknown[] | null;
+  categories: Array<{ title: string | null }> | null;
+  author: { name: string | null } | null;
+}
+// Get single post by slug
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "post" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    "mainImage": mainImage.asset->url,
+    body,
+    "categories": categories[]->{ title },
+    "author": author->{ name }
+  }`;
+  const data = await client.fetch(query, { slug });
+  return data || null;
+}
+
+export async function getAllPostSlugs(): Promise<string[]> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "post"]{ "slug": slug.current }`;
+  const data = await client.fetch(query);
+  return data.map((post: { slug: string | null }) => post.slug).filter(Boolean) as string[];
+}

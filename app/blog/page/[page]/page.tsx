@@ -7,9 +7,15 @@ export const metadata: Metadata = {
   description: "Thoughts on AI, software engineering, and building at scale.",
 };
 const POSTS_PER_PAGE = 10;
-export default async function BlogPage() {
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ page: string }>;
+}) {
+  const { page } = await params;
+  const currentPage = parseInt(page, 10);
   const [posts, totalCount] = await Promise.all([
-    getPaginatedBlogPosts(1, POSTS_PER_PAGE),
+    getPaginatedBlogPosts(currentPage, POSTS_PER_PAGE),
     getBlogPostCount(),
   ]);
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
@@ -24,7 +30,14 @@ export default async function BlogPage() {
         </span>
       </h1>
       <BlogList posts={posts} />
-      <Pagination currentPage={1} totalPages={totalPages} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
+}
+export async function generateStaticParams() {
+  const totalCount = await getBlogPostCount();
+  const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    page: (i + 2).toString(),
+  }));
 }

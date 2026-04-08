@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Suspense } from "react";
 
 
 
@@ -31,7 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-full flex-col bg-white text-zinc-950 dark:bg-black dark:text-zinc-50">
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Suspense fallback={null}><Footer /></Suspense>
+
       </body>
       {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
