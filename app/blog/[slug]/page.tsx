@@ -14,6 +14,7 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound();
   }
+  console.log(JSON.stringify(post.body))
   return (
     <article className="mx-auto max-w-3xl px-6 py-12">
       <Link

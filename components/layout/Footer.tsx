@@ -3,7 +3,6 @@ import { getFooterContent } from "@/lib/sanity";
 export default async function Footer() {
 
   const footerData = await getFooterContent();
-  console.log(JSON.stringify(footerData))
   return (
     <footer className="w-full border-t border-zinc-200 py-4 dark:border-zinc-800">
       <div className="mx-auto flex max-w-5xl flex-col items-center justify-between px-6 md:flex-row">
@@ -20,7 +19,7 @@ export default async function Footer() {
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
               title="GitHub"
-              className="transition-opacity hover:opacity-70"
+              className="transition-opacity hover:opacity-70 text-zinc-900 dark:text-white"
             >
               <Image
                 src="/images/github-icon.svg"
@@ -28,8 +27,7 @@ export default async function Footer() {
                 width={24}
                 height={24}
               />
-            </a>
-          )}
+            </a>)}
           {footerData.linkedinLink && (
             <a
               href={footerData.linkedinLink}
@@ -37,16 +35,17 @@ export default async function Footer() {
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
               title="LinkedIn"
-              className="transition-opacity hover:opacity-70"
+              className="transition-opacity hover:opacity-70 text-zinc-900 dark:text-white"
             >
               <Image
                 src="/images/linkedin-icon.svg"
                 alt="LinkedIn"
                 width={24}
                 height={24}
+                style={{ fill: 'currentColor' }}
+                unoptimized={true}
               />
-            </a>
-          )}
+            </a>)}
         </div>
       </div>
     </footer>

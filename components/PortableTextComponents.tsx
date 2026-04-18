@@ -1,22 +1,44 @@
 import Image from "next/image";
 import type { PortableTextComponents } from "@portabletext/react";
 
-// Code block component with language indicator (no JS required)
-const CodeBlock = ({ value }: { value: { language?: string; code: string } }) => {
+// Code block component with syntax highlighting
+interface CodeBlockValue {
+  language?: string;
+  code: string;
+  _highlightedHtml?: string;
+}
+
+const CodeBlock = ({ value }: { value: CodeBlockValue }) => {
+  const codeContent = value._highlightedHtml ?? value.code;
+
+  // Extract language for display (handle golang -> go mapping)
+  const langMap: Record<string, string> = {
+    golang: 'go',
+    javascript: 'javascript',
+    js: 'javascript',
+    typescript: 'typescript',
+    ts: 'typescript',
+    python: 'python',
+    py: 'python',
+    rust: 'rust',
+    rs: 'rust',
+    bash: 'bash',
+    sh: 'bash',
+    shell: 'shell'
+  };
+  const displayLang = value.language ? (langMap[value.language.toLowerCase()] || value.language) : null;
+
   return (
-    <div className="bg-zinc-900 rounded-md overflow-hidden">
-      {/* Language label */}
-      <div className={`
-        flex items-center justify-between px-3 py-1.5 text-xs font-medium
-        bg-zinc-800 text-zinc-300 border-b
-        ${value.language && value.language !== 'plaintext' ? '' : 'hidden'}
-      `}>
-        <span>{value.language && value.language !== 'plaintext' ? value.language.toUpperCase() : 'TEXT'}</span>
-      </div>
-      {/* Code content */}
-      <pre className="p-4 overflow-x-auto">
-        <code className="block text-zinc-100">{value.code}</code>
-      </pre>
+    <div className="my-4 rounded-lg overflow-hidden">
+      {displayLang && displayLang !== 'plaintext' && displayLang !== 'text' && (
+        <div className="px-3 py-1 text-xs font-extrabold bg-zinc-800 text-zinc-400 rounded-t-lg -mb-px ">
+          {displayLang.toUpperCase()}
+        </div>
+      )}
+      <div
+        className="overflow-x-auto"
+        dangerouslySetInnerHTML={{ __html: codeContent }}
+      />
     </div>
   );
 };

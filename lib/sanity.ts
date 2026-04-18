@@ -1,3 +1,6 @@
+// Using Shiki for syntax highlighting (ESM-native, same as Sanity)
+import { createHighlighter } from 'shiki';
+
 import { createClient, type PortableTextBlock } from "next-sanity";
 import { cacheLife } from "next/cache";
 export const client = createClient({
@@ -212,6 +215,14 @@ export interface Post {
   categories: Array<{ title: string | null }> | null;
   author: { name: string | null } | null;
 }
+
+type CodeBlock = {
+  _type: 'code';
+  language?: string;
+  code: string;
+  _highlightedHtml?: string;
+};
+
 // Get single post by slug
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   'use cache'
@@ -228,6 +239,52 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     "author": author->{ name }
   }`;
   const data = await client.fetch(query, { slug });
+if (data?.body) {
+    // Initialize Shiki highlighter with both themes for dark/light mode
+    const highlighter = await createHighlighter({
+      themes: ['github-dark', 'github-light'],
+      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx']
+    });
+    
+    // Map Sanity language names to Shiki language IDs
+    const langMap: Record<string, string> = {
+      javascript: 'javascript',
+      js: 'javascript',
+      typescript: 'typescript',
+      ts: 'typescript',
+      python: 'python',
+      py: 'python',
+      go: 'go',
+      golang: 'go',
+      rust: 'rust',
+      rs: 'rust',
+      bash: 'bash',
+      sh: 'bash',
+      shell: 'bash',
+      json: 'json',
+      css: 'css',
+      html: 'html',
+      jsx: 'jsx',
+      text: 'text',
+      plaintext: 'text'
+    };
+    
+    data.body = data.body.map((block: CodeBlock) => {
+      if (block._type === 'code' && block.code) {
+        const rawLang = block.language?.toLowerCase() || 'text';
+        const lang = langMap[rawLang] || 'text';
+        try {
+          // Generate both light and dark theme HTML with data-theme attributes
+          const darkHtml = highlighter.codeToHtml(block.code, { lang, theme: 'github-dark' });
+          const lightHtml = highlighter.codeToHtml(block.code, { lang, theme: 'github-light' });
+          block._highlightedHtml = `<div data-theme="dark">${darkHtml}</div><div data-theme="light" class="hidden">${lightHtml}</div>`;
+        } catch {
+          block._highlightedHtml = block.code.replace(/[&<]/g, (c: string): string => c === '&' ? '&amp;' : '&lt;');
+        }
+      }
+      return block;
+    });
+  }
   return data || null;
 }
 
