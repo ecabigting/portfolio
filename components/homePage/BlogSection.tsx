@@ -57,7 +57,8 @@ export default async function BlogSection() {
                 {post.slug && (
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="text-sm text-zinc-300 hover:text-white transition-colors"
+                    className="text-sm text-transparent bg-clip-text bg-linear-to-r from-red-400 
+            via-white-400 to-yellow-400 mr-4 bg-white"
                   >
                     Read more →
                   </Link>

@@ -146,6 +146,7 @@ export interface BlogPost {
   _id: string;
   title: string | null;
   slug: string | null;
+  excerpt: string | null;
   publishedAt: string | null;
   mainImage: string | null;
   categories: Array<{ title: string | null }> | null;
@@ -158,6 +159,7 @@ export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]>
     _id,
     title,
     "slug": slug.current,
+    "excerpt": excerpt,
     publishedAt,
     "mainImage": mainImage.asset->url,
     "categories": categories[]->{ title }
@@ -171,6 +173,7 @@ export interface BlogPostListItem {
   title: string | null;
   slug: string | null;
   publishedAt: string | null;
+  excerpt: string | null;
   body: PortableTextBlock[] | null;
 }
 // Get total blog post count
@@ -191,35 +194,18 @@ export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10
     title,
     "slug": slug.current,
     publishedAt,
+    excerpt,
     body
   }`;
   const data = await client.fetch(query);
   return data || [];
-}
-// Extract plain text excerpt from body
-export function extractExcerpt(body: unknown[] | null, maxLength: number = 200): string {
-  if (!body || !Array.isArray(body) || body.length === 0) return "";
-  let text = "";
-  for (const block of body) {
-    if (typeof block === 'object' && block !== null && 'children' in block) {
-      const children = (block as { children?: Array<{ text?: string }> }).children;
-      if (Array.isArray(children)) {
-        for (const child of children) {
-          if (child.text) text += child.text + " ";
-        }
-      }
-    }
-    if (text.length >= maxLength) break;
-  }
-  return text.length > maxLength
-    ? text.substring(0, maxLength).trim() + "..."
-    : text.trim();
 }
 
 export interface Post {
   _id: string;
   title: string | null;
   slug: string | null;
+  excerpt: string | null;
   publishedAt: string | null;
   mainImage: string | null;
   body: PortableTextBlock[] | null;
@@ -235,6 +221,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     title,
     "slug": slug.current,
     publishedAt,
+    excerpt,
     "mainImage": mainImage.asset->url,
     body,
     "categories": categories[]->{ title },

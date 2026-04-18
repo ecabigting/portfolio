@@ -1,5 +1,4 @@
 import Link from "next/link";
-import MobileNav from "./MobileNav";
 // Single Source of Truth for navigation
 const navLinks = [
   { href: "/blog", label: "blog" },

@@ -4,6 +4,7 @@ import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/components/PortableTextComponents";
 interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -67,7 +68,7 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
       <div className="prose prose-zinc dark:prose-invert max-w-none">
         {post.body ? (
-          <PortableText value={post.body} />) : (
+          <PortableText value={post.body} components={portableTextComponents} />) : (
           <p className="text-zinc-600 dark:text-zinc-400">
             No content available for this post.
           </p>
@@ -76,17 +77,47 @@ export default async function PostPage({ params }: PostPageProps) {
     </article>
   );
 }
+
+
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+
   if (!post) {
     return { title: "Post Not Found" };
   }
+
+  const ogImage = post.mainImage
+    ? [{ url: post.mainImage, width: 800, height: 450, alt: post.title ?? "Blog post" }]
+    : undefined;
+
   return {
     title: `${post.title} | ecabigting`,
-    description: post.title ?? undefined,
+    description: post.excerpt ?? undefined,
+    alternates: {
+      canonical: `https://ericcabigting.dev/blog/${slug}`,
+    },
+    openGraph: {
+      title: post.title ?? "Blog Post",
+      description: post.excerpt ?? undefined,
+      url: `https://ericcabigting.dev/blog/${slug}`,
+      siteName: "ecabigting",
+      locale: "en_US",
+      type: "article",
+      publishedTime: post.publishedAt ?? undefined,
+      authors: post.author?.name ? [post.author.name] : undefined,
+      images: ogImage,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title ?? "Blog Post",
+      description: post.excerpt ?? undefined,
+      images: ogImage?.map(img => img.url),
+    },
   };
 }
+
+
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
   return slugs.map((slug) => ({ slug }));

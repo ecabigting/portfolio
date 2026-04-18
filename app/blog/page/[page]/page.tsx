@@ -1,11 +1,8 @@
-import { getPaginatedBlogPosts, getBlogPostCount } from "@/lib/sanity";
+import { getPaginatedBlogPosts, getBlogPostCount, getSiteSettings } from "@/lib/sanity";
 import BlogList from "@/components/blogPage/BlogList";
 import Pagination from "@/components/blogPage/Pagination";
 import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Blog | ecabigting",
-  description: "Thoughts on AI, software engineering, and building at scale.",
-};
+
 const POSTS_PER_PAGE = 10;
 export default async function BlogPage({
   params,
@@ -40,4 +37,38 @@ export async function generateStaticParams() {
   return Array.from({ length: totalPages - 1 }, (_, i) => ({
     page: (i + 2).toString(),
   }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ page: string }> }): Promise<Metadata> {
+  const { page } = await params;
+  const site = await getSiteSettings();
+
+  return {
+    title: `Blog Page ${page} | ecabigting`,
+    description: "Thoughts on AI, software engineering, and building at scale.",
+    alternates: {
+      canonical: `https://ericcabigting.dev/blog/page/${page}`,
+    },
+    openGraph: {
+      title: `Blog Page ${page} | ecabigting`,
+      description: "Thoughts on AI, software engineering, and building at scale.",
+      url: `https://ericcabigting.dev/blog/page/${page}`,
+      siteName: "ecabigting",
+      locale: "en_US",
+      type: "website",
+      images: site.profileImage ? [
+        {
+          url: site.profileImage,
+          width: 800,
+          height: 800,
+          alt: "ecabigting",
+        },
+      ] : undefined,
+    },
+    twitter: {
+      card: "summary",
+      title: `Blog Page ${page} | ecabigting`,
+      description: "Thoughts on AI, software engineering, and building at scale.",
+    },
+  };
 }
