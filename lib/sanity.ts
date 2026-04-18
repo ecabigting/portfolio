@@ -60,7 +60,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     cvLink,
     githubLink,
     linkedinLink,
-    skills,
     "certifications": certifications[]{
       title,
       issuingBody,
@@ -127,9 +126,47 @@ export async function getFooterContent(): Promise<FooterContent> {
   return footerData || [];
 }
 
+export interface FooterContent {
+  location: string | null;
+  currentStatus: string | null;
+  email: string | null;
+  phone: string | null;
+  cvLink: string | null;
+  githubLink: string | null;
+  linkedinLink: string | null;
+  year: string | null;
+}
+
+// Get footer for lazy loading (called from server action)
+export async function getFooter(): Promise<FooterContent | null> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "siteSettings"][0]{
+    location,
+    currentStatus,
+    email,
+    phone,
+    cvLink,
+    githubLink,
+    linkedinLink,
+    "year": now()
+  }`;
+  const data = await client.fetch(query);
+  return data || null;
+}
+
 export interface Project {
   title: string | null;
   link: string | null;
+}
+
+// Get skills for lazy loading (called from server action)
+export async function getSkills(): Promise<string[]> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "siteSettings"][0].skills`
+  const data = await client.fetch(query)
+  return data || []
 }
 
 export async function getProjects(): Promise<Project[]> {

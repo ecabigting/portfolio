@@ -7,12 +7,14 @@ interface ExperienceSectionProps {
     location: string | null;
     companyUrl: string | null;
   }> | null;
+  cvLink: string | null;
 }
 export default function ExperienceSection({
   experienceBanner,
   experience,
+  cvLink,
 }: ExperienceSectionProps) {
-  const sorted = experience ? [...experience].reverse() : [];
+  const sorted = experience ? [...experience].reverse().slice(0, 3) : [];
   return (
     <section className="py-8 md:py-16" >
       <h2 className="text-xl font-bold tracking-tight text-right text-zinc-900 dark:text-zinc-50 sm:text-4xl">
@@ -72,6 +74,25 @@ export default function ExperienceSection({
               </div>
             ))
           }
+          {cvLink && (
+            <div className="mt-6">
+              <a
+                href={cvLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full sm:w-fit"
+              >
+                <button
+                  className='px-1 py-1 w-full sm:w-fit rounded-full 
+              bg-linear-to-br from-red-500 via-white-500 to-yellow-500 
+              hover:bg-slate-800 text-white font-bold'
+                >
+                  <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-2 text-center'>
+                    Download my CV!</span>
+                </button>
+              </a>
+            </div>
+          )}
         </div>
 
       </div>

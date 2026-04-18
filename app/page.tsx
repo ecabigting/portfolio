@@ -2,9 +2,9 @@ import { getProjects, getSiteSettings } from "@/lib/sanity";
 import HeroSection from "@/components/homePage/HeroSection";
 import AboutMeSection from "@/components/homePage/AboutMeSection";
 import ExperienceSection from "@/components/homePage/ExperienceSection";
-import SkillsSection from "@/components/homePage/SkillSection";
-import { Suspense } from "react";
-import BlogSection from "@/components/homePage/BlogSection";
+import BlogSection from "@/components/homePage/BlogSectionWrapper";
+import SkillsSection from "@/components/homePage/SkillsSectionWrapper";
+
 export default async function Home() {
   const [data, projects] = await Promise.all([getSiteSettings(), getProjects()]);
   return (
@@ -24,10 +24,9 @@ export default async function Home() {
       <ExperienceSection
         experienceBanner={data.experienceBanner}
         experience={data.experience}
+        cvLink={data.cvLink}
       />
-      <Suspense fallback={null}>
-        <SkillsSection skills={data.skills} />
-      </Suspense>
+      <SkillsSection />
     </div>
   );
 }
