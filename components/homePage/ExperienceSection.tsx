@@ -88,7 +88,7 @@ export default function ExperienceSection({
               hover:bg-slate-800 text-white font-bold'
                 >
                   <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-6 py-2 text-center'>
-                    Download my CV!</span>
+                    View Full CV</span>
                 </button>
               </a>
             </div>
