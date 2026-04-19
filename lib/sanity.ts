@@ -112,14 +112,17 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 }
 
 export interface FooterContent {
-  location: string | null,
-  currentStatus: string | null,
-  email: string | null,
-  phone: string | null,
-  cvLink: string | null,
-  githubLink: string | null,
-  linkedinLink: string | null,
-  year: string | null
+  location: string | null;
+  email: string | null;
+  phone: string | null;
+  cvLink: string | null;
+  githubLink: string | null;
+  linkedinLink: string | null;
+  year: string | null;
+  recentPosts: Array<{
+    title: string | null;
+    slug: string | null;
+  }>;
 }
 
 export async function getFooterContent(): Promise<FooterContent> {
@@ -127,16 +130,29 @@ export async function getFooterContent(): Promise<FooterContent> {
   cacheLife('hours')
   const query = `*[_type == "siteSettings"][0]{
     location,
-    currentStatus,
     email,
     phone,
     cvLink,
     githubLink,
     linkedinLink,
-    "year": now()
+    "year": now(),
+    "recentPosts": *[_type == "post"] | order(_createdAt desc) [0...10] {
+      "title": title,
+      "slug": slug.current
+    }
   }`;
   const footerData = await client.fetch(query);
-  return footerData || [];
+  console.log('[DEBUG] getFooterContent:', JSON.stringify(footerData, (k, v) => k === 'recentPosts' ? `[${v?.length || 0} items]` : v, 2))
+  return footerData || {
+    location: null,
+    email: null,
+    phone: null,
+    cvLink: null,
+    githubLink: null,
+    linkedinLink: null,
+    year: null,
+    recentPosts: []
+  };
 }
 
 export interface FooterContent {
@@ -162,7 +178,11 @@ export async function getFooter(): Promise<FooterContent | null> {
     cvLink,
     githubLink,
     linkedinLink,
-    "year": now()
+    "year": now(),
+    "recentPosts": *[_type == "post"] | order(_createdAt desc) [0...10] {
+      "title": title,
+      "slug": slug.current
+    }
   }`;
   const data = await client.fetch(query);
   return data || null;
