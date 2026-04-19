@@ -1,11 +1,13 @@
 import Image from "next/image";
+import type { SiteSettings } from "@/lib/sanity";
+import { getCroppedProfileImageUrl } from "@/lib/sanity";
 
 interface HeroSectionProps {
   title: string | null;
   subtitle: string | null;
   email: string | null;
   cvLink: string | null;
-  profileImage: string | null;
+  profileImage: SiteSettings['profileImage'];
 }
 export default function HeroSection({
   title,
@@ -14,6 +16,9 @@ export default function HeroSection({
   cvLink,
   profileImage
 }: HeroSectionProps) {
+  const croppedUrl = getCroppedProfileImageUrl(profileImage);
+  const displayUrl = croppedUrl ?? "/images/actual-hero-image.webp";
+
   return (
     <section className="flex flex-col items-center gap-8 py-6 md:flex-row md:justify-between md:py-12">
       {/* 1. Content Area (Stacked on Mobile) */}
@@ -69,7 +74,7 @@ export default function HeroSection({
         <div className='rounded-full w-62.5 h-62.5 lg:w-62.5 lg:h-62.5 relative mt-4
             bg-linear-to-r from-red-400 via-white-400 to-yellow-400 bg-[#181818] '>
           <Image
-            src={profileImage ?? "/images/actual-hero-image.webp"}
+            src={displayUrl}
             alt={title ?? "Profile Image"}
             fill
             priority

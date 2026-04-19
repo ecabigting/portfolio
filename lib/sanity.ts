@@ -1,4 +1,5 @@
-// Using Shiki for syntax highlighting (ESM-native, same as Sanity)
+import imageUrlBuilder from '@sanity/image-url'
+
 import { createHighlighter } from 'shiki';
 
 import { createClient, type PortableTextBlock } from "next-sanity";
@@ -13,7 +14,13 @@ export const client = createClient({
 export interface SiteSettings {
   mainTitle: string | null;
   subTitle: string | null,
-  profileImage: string | null; // Projected to URL string
+  profileImage: {
+    url: string | null;
+    assetId: string | null;
+    crop: { top: number; bottom: number; left: number; right: number } | null;
+    hotspot: { x: number; y: number; height: number; width: number } | null;
+    dimensions: { width: number; height: number } | null;
+  } | null;
   aboutMe: string | null;
   location: string | null;
   currentStatus: 'open-to-work' | 'open-to-freelance' | 'open-to-fulltime' | 'not-available' | null;
@@ -50,7 +57,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   const query = `*[_type == "siteSettings"][0]{
     mainTitle,
     subTitle,
-    "profileImage": profileImage.asset->url,
+    "profileImage": {
+    "url": profileImage.asset->url,
+    "assetId": profileImage.asset._ref,
+    "crop": profileImage.crop,
+    "hotspot": profileImage.hotspot,
+    "dimensions": profileImage.asset->metadata.dimensions
+    },
     "experienceBanner": experienceBanner.asset->url,
     aboutMe,
     location,
@@ -331,4 +344,27 @@ export async function getAllPostSlugs(): Promise<string[]> {
   const query = `*[_type == "post"]{ "slug": slug.current }`;
   const data = await client.fetch(query);
   return data.map((post: { slug: string | null }) => post.slug).filter(Boolean) as string[];
+}
+
+const builder = imageUrlBuilder(client)
+
+export function getCroppedProfileImageUrl(image: SiteSettings['profileImage']): string | null {
+  if (!image?.url || !image.crop || !image.assetId) {
+    return image?.url ?? null
+  }
+  const { width, height } = image.dimensions || { width: 1000, height: 1000 }
+  const { top, bottom, left, right } = image.crop
+
+  return builder
+    .image({
+      _type: 'image',
+      asset: { _ref: image.assetId },
+    })
+    .rect(
+      Math.round(left * width),
+      Math.round(top * height),
+      Math.round((1 - left - right) * width),
+      Math.round((1 - top - bottom) * height)
+    )
+    .url()
 }

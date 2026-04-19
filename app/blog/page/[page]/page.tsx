@@ -56,9 +56,9 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
       siteName: "ecabigting",
       locale: "en_US",
       type: "website",
-      images: site.profileImage ? [
+      images: site.profileImage?.url ? [
         {
-          url: site.profileImage,
+          url: site.profileImage.url,
           width: 800,
           height: 800,
           alt: "ecabigting",
