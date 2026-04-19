@@ -79,8 +79,8 @@ export default function BlogSectionClient() {
             {post.mainImage && (
               <div className="aspect-video w-full overflow-hidden">
                 <Image
-                  width={100}
-                  height={100}
+                  width={400}
+                  height={400}
                   src={post.mainImage}
                   alt={post.title ?? "Blog post cover"}
                   className="w-full h-full object-cover"
