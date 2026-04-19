@@ -46,21 +46,21 @@ function renderProtectedText(text: string) {
   );
 }
 
-function renderProtectedHref(href: string) {
-  const parts = splitForBotProtection(href);
-  return (
-    <a href={`${parts.map((p) => p.text).join("")}`}>
-      {parts.map((part, i) => (
-        <span
-          key={i}
-          style={{ display: "inline-block", unicodeBidi: "bidi-override", direction: part.reversed ? "rtl" : "ltr" }}
-        >
-          {part.text}
-        </span>
-      ))}
-    </a>
-  );
-}
+// function renderProtectedHref(href: string) {
+//   const parts = splitForBotProtection(href);
+//   return (
+//     <a href={`${parts.map((p) => p.text).join("")}`}>
+//       {parts.map((part, i) => (
+//         <span
+//           key={i}
+//           style={{ display: "inline-block", unicodeBidi: "bidi-override", direction: part.reversed ? "rtl" : "ltr" }}
+//         >
+//           {part.text}
+//         </span>
+//       ))}
+//     </a>
+//   );
+// }
 
 export default async function Footer() {
   const footerData = await getFooterContent();

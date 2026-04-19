@@ -1,4 +1,4 @@
-import { Project } from "@/lib/sanity";
+import { Project } from "@/lib/interfaces";
 import Link from "next/link";
 interface AboutMeSectionProps {
   aboutMe: string | null;

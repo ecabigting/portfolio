@@ -1,10 +1,7 @@
 import Link from "next/link";
-// Single Source of Truth for navigation
 const navLinks = [
   { href: "/blog", label: "blog" },
   { href: "/projects", label: "projects" },
-  // { href: "/about", label: "about" },
-  // { href: "/contact", label: "contact" },
 ];
 export default function Header() {
   return (

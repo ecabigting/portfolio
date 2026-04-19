@@ -1,5 +1,5 @@
+import { BlogPostListItem } from "@/lib/interfaces";
 import Link from "next/link";
-import { BlogPostListItem } from "@/lib/sanity";
 interface BlogListProps {
   posts: BlogPostListItem[];
 }

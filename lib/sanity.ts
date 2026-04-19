@@ -1,54 +1,18 @@
 import imageUrlBuilder from '@sanity/image-url'
 import { createHighlighter } from 'shiki';
-import { createClient, type PortableTextBlock } from "next-sanity";
+import { createClient } from "next-sanity";
 import { cacheLife } from "next/cache";
+import { Project, BlogPost, BlogPostListItem, CodeBlock, FooterContent, Post, SiteSettings } from './interfaces';
+
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: process.env.SANITY_API_VERSION || '2026-01-05',
   useCdn: false,
 });
-// Define the interface based on your siteSettings schema
-export interface SiteSettings {
-  mainTitle: string | null;
-  subTitle: string | null,
-  profileImage: {
-    url: string | null;
-    assetId: string | null;
-    crop: { top: number; bottom: number; left: number; right: number } | null;
-    hotspot: { x: number; y: number; height: number; width: number } | null;
-    dimensions: { width: number; height: number } | null;
-  } | null;
-  aboutMe: string | null;
-  location: string | null;
-  currentStatus: 'open-to-work' | 'open-to-freelance' | 'open-to-fulltime' | 'not-available' | null;
-  email: string | null;
-  phone: string | null;
-  experienceBanner: string | null,
-  cvLink: string | null;
-  githubLink: string | null;
-  linkedinLink: string | null;
-  skills: string[] | null;
-  certifications: Array<{
-    title: string | null;
-    issuingBody: string | null;
-    location: string | null;
-  }> | null;
-  experience: Array<{
-    role: string | null;
-    company: string | null;
-    location: string | null;
-    companyUrl: string | null
-  }> | null;
-  socialLinks: Array<{
-    platform: string | null;
-    url: string | null;
-  }> | null;
-}
-/**
- * Reusable function to fetch site settings.
- * Can be called from any Server Component.
- */
+
+const builder = imageUrlBuilder(client)
+
 export async function getSiteSettings(): Promise<SiteSettings> {
   'use cache'
   cacheLife('hours')
@@ -88,7 +52,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     }
   }`;
   const data = await client.fetch(query);
-  // Final Safety Check: Return a base object if the document itself is missing
   return data || {
     mainTitle: null,
     subTitle: null,
@@ -107,20 +70,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     socialLinks: [],
     experienceBanner: null
   };
-}
-
-export interface FooterContent {
-  location: string | null;
-  email: string | null;
-  phone: string | null;
-  cvLink: string | null;
-  githubLink: string | null;
-  linkedinLink: string | null;
-  year: string | null;
-  recentPosts: Array<{
-    title: string | null;
-    slug: string | null;
-  }>;
 }
 
 export async function getFooterContent(): Promise<FooterContent> {
@@ -153,18 +102,6 @@ export async function getFooterContent(): Promise<FooterContent> {
   };
 }
 
-export interface FooterContent {
-  location: string | null;
-  currentStatus: string | null;
-  email: string | null;
-  phone: string | null;
-  cvLink: string | null;
-  githubLink: string | null;
-  linkedinLink: string | null;
-  year: string | null;
-}
-
-// Get footer for lazy loading (called from server action)
 export async function getFooter(): Promise<FooterContent | null> {
   'use cache'
   cacheLife('hours')
@@ -186,21 +123,6 @@ export async function getFooter(): Promise<FooterContent | null> {
   return data || null;
 }
 
-export interface Project {
-  _id: string;
-  title: string | null;
-  featured: boolean | null;
-  date: string | null;
-  role: string | null;
-  technologies: string[] | null;
-  company: string | null;
-  description: string | null;
-  projectType: string | null;
-  link: string | null;
-  tags: string[] | null;
-}
-
-// Get skills for lazy loading (called from server action)
 export async function getSkills(): Promise<string[]> {
   'use cache'
   cacheLife('hours')
@@ -229,18 +151,6 @@ export async function getProjects(): Promise<Project[]> {
   return data || [];
 }
 
-
-// Blog post for home page cards
-export interface BlogPost {
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  excerpt: string | null;
-  publishedAt: string | null;
-  mainImage: string | null;
-  categories: Array<{ title: string | null }> | null;
-}
-// Get recent posts for home page
 export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]> {
   'use cache'
   cacheLife('hours')
@@ -256,16 +166,7 @@ export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]>
   const data = await client.fetch(query);
   return data || [];
 }
-// Blog list item (for pagination)
-export interface BlogPostListItem {
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  publishedAt: string | null;
-  excerpt: string | null;
-  body: PortableTextBlock[] | null;
-}
-// Get total blog post count
+
 export async function getBlogPostCount(): Promise<number> {
   'use cache'
   cacheLife('hours')
@@ -273,7 +174,7 @@ export async function getBlogPostCount(): Promise<number> {
   const result = await client.fetch(query);
   return typeof result === 'number' ? result : 0;
 }
-// Get paginated blog posts
+
 export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10): Promise<BlogPostListItem[]> {
   'use cache'
   cacheLife('hours')
@@ -290,26 +191,6 @@ export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10
   return data || [];
 }
 
-export interface Post {
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  excerpt: string | null;
-  publishedAt: string | null;
-  mainImage: string | null;
-  body: PortableTextBlock[] | null;
-  categories: Array<{ title: string | null }> | null;
-  author: { name: string | null } | null;
-}
-
-type CodeBlock = {
-  _type: 'code';
-  language?: string;
-  code: string;
-  _highlightedHtml?: string;
-};
-
-// Get single post by slug
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   'use cache'
   cacheLife('hours')
@@ -382,7 +263,6 @@ export async function getAllPostSlugs(): Promise<string[]> {
   return data.map((post: { slug: string | null }) => post.slug).filter(Boolean) as string[];
 }
 
-const builder = imageUrlBuilder(client)
 
 export function getCroppedProfileImageUrl(image: SiteSettings['profileImage']): string | null {
   if (!image?.url || !image.crop || !image.assetId) {
