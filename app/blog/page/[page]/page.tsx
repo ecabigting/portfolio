@@ -3,8 +3,6 @@ import BlogList from "@/components/blogPage/BlogList";
 import Pagination from "@/components/blogPage/Pagination";
 import { Metadata } from "next";
 
-export const revalidate = 3600
-
 const POSTS_PER_PAGE = 10;
 export default async function BlogPage({
   params,
