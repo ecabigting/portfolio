@@ -122,7 +122,7 @@ export default function FooterClient() {
             </li>
             <li>
               <Link
-                href="/#projects"
+                href="/projects"
                 className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
               >
                 Projects

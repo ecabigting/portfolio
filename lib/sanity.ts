@@ -189,8 +189,17 @@ export async function getFooter(): Promise<FooterContent | null> {
 }
 
 export interface Project {
+  _id: string;
   title: string | null;
+  featured: boolean | null;
+  date: string | null;
+  role: string | null;
+  technologies: string[] | null;
+  company: string | null;
+  description: string | null;
+  projectType: string | null;
   link: string | null;
+  tags: string[] | null;
 }
 
 // Get skills for lazy loading (called from server action)
@@ -206,8 +215,17 @@ export async function getProjects(): Promise<Project[]> {
   'use cache'
   cacheLife('hours')
   const query = `*[_type == "project"] | order(date desc) {
+    _id,
     title,
-    link
+    featured,
+    date,
+    role,
+    technologies,
+    company,
+    description,
+    projectType,
+    link,
+    tags
   }`;
   const data = await client.fetch(query);
   return data || [];
