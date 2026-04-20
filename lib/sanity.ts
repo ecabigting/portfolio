@@ -1,54 +1,18 @@
 import imageUrlBuilder from '@sanity/image-url'
 import { createHighlighter } from 'shiki';
-import { createClient, type PortableTextBlock } from "next-sanity";
+import { createClient } from "next-sanity";
 import { cacheLife } from "next/cache";
+import { Project, BlogPost, BlogPostListItem, CodeBlock, FooterContent, Post, SiteSettings } from './interfaces';
+
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: process.env.SANITY_API_VERSION || '2026-01-05',
   useCdn: false,
 });
-// Define the interface based on your siteSettings schema
-export interface SiteSettings {
-  mainTitle: string | null;
-  subTitle: string | null,
-  profileImage: {
-    url: string | null;
-    assetId: string | null;
-    crop: { top: number; bottom: number; left: number; right: number } | null;
-    hotspot: { x: number; y: number; height: number; width: number } | null;
-    dimensions: { width: number; height: number } | null;
-  } | null;
-  aboutMe: string | null;
-  location: string | null;
-  currentStatus: 'open-to-work' | 'open-to-freelance' | 'open-to-fulltime' | 'not-available' | null;
-  email: string | null;
-  phone: string | null;
-  experienceBanner: string | null,
-  cvLink: string | null;
-  githubLink: string | null;
-  linkedinLink: string | null;
-  skills: string[] | null;
-  certifications: Array<{
-    title: string | null;
-    issuingBody: string | null;
-    location: string | null;
-  }> | null;
-  experience: Array<{
-    role: string | null;
-    company: string | null;
-    location: string | null;
-    companyUrl: string | null
-  }> | null;
-  socialLinks: Array<{
-    platform: string | null;
-    url: string | null;
-  }> | null;
-}
-/**
- * Reusable function to fetch site settings.
- * Can be called from any Server Component.
- */
+
+const builder = imageUrlBuilder(client)
+
 export async function getSiteSettings(): Promise<SiteSettings> {
   'use cache'
   cacheLife('hours')
@@ -88,7 +52,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     }
   }`;
   const data = await client.fetch(query);
-  // Final Safety Check: Return a base object if the document itself is missing
   return data || {
     mainTitle: null,
     subTitle: null,
@@ -107,20 +70,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     socialLinks: [],
     experienceBanner: null
   };
-}
-
-export interface FooterContent {
-  location: string | null;
-  email: string | null;
-  phone: string | null;
-  cvLink: string | null;
-  githubLink: string | null;
-  linkedinLink: string | null;
-  year: string | null;
-  recentPosts: Array<{
-    title: string | null;
-    slug: string | null;
-  }>;
 }
 
 export async function getFooterContent(): Promise<FooterContent> {
@@ -153,18 +102,6 @@ export async function getFooterContent(): Promise<FooterContent> {
   };
 }
 
-export interface FooterContent {
-  location: string | null;
-  currentStatus: string | null;
-  email: string | null;
-  phone: string | null;
-  cvLink: string | null;
-  githubLink: string | null;
-  linkedinLink: string | null;
-  year: string | null;
-}
-
-// Get footer for lazy loading (called from server action)
 export async function getFooter(): Promise<FooterContent | null> {
   'use cache'
   cacheLife('hours')
@@ -186,21 +123,6 @@ export async function getFooter(): Promise<FooterContent | null> {
   return data || null;
 }
 
-export interface Project {
-  _id: string;
-  title: string | null;
-  featured: boolean | null;
-  date: string | null;
-  role: string | null;
-  technologies: string[] | null;
-  company: string | null;
-  description: string | null;
-  projectType: string | null;
-  link: string | null;
-  tags: string[] | null;
-}
-
-// Get skills for lazy loading (called from server action)
 export async function getSkills(): Promise<string[]> {
   'use cache'
   cacheLife('hours')
@@ -229,18 +151,6 @@ export async function getProjects(): Promise<Project[]> {
   return data || [];
 }
 
-
-// Blog post for home page cards
-export interface BlogPost {
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  excerpt: string | null;
-  publishedAt: string | null;
-  mainImage: string | null;
-  categories: Array<{ title: string | null }> | null;
-}
-// Get recent posts for home page
 export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]> {
   'use cache'
   cacheLife('hours')
@@ -256,16 +166,7 @@ export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]>
   const data = await client.fetch(query);
   return data || [];
 }
-// Blog list item (for pagination)
-export interface BlogPostListItem {
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  publishedAt: string | null;
-  excerpt: string | null;
-  body: PortableTextBlock[] | null;
-}
-// Get total blog post count
+
 export async function getBlogPostCount(): Promise<number> {
   'use cache'
   cacheLife('hours')
@@ -273,7 +174,7 @@ export async function getBlogPostCount(): Promise<number> {
   const result = await client.fetch(query);
   return typeof result === 'number' ? result : 0;
 }
-// Get paginated blog posts
+
 export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10): Promise<BlogPostListItem[]> {
   'use cache'
   cacheLife('hours')
@@ -290,26 +191,6 @@ export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10
   return data || [];
 }
 
-export interface Post {
-  _id: string;
-  title: string | null;
-  slug: string | null;
-  excerpt: string | null;
-  publishedAt: string | null;
-  mainImage: string | null;
-  body: PortableTextBlock[] | null;
-  categories: Array<{ title: string | null }> | null;
-  author: { name: string | null } | null;
-}
-
-type CodeBlock = {
-  _type: 'code';
-  language?: string;
-  code: string;
-  _highlightedHtml?: string;
-};
-
-// Get single post by slug
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   'use cache'
   cacheLife('hours')
@@ -320,7 +201,14 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     publishedAt,
     excerpt,
     "mainImage": mainImage.asset->url,
-    body,
+    body[]{
+      ...,
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt
+      }
+    },
     "categories": categories[]->{ title },
     "author": author->{ name }
   }`;
@@ -329,9 +217,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     // Initialize Shiki highlighter with both themes for dark/light mode
     const highlighter = await createHighlighter({
       themes: ['github-dark', 'github-light'],
-      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx']
+      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx', 'cpp', 'c', 'scss', 'sql', 'tsx', 'xml', 'yaml', 'csharp', 'java', 'markdown', 'php', 'ruby', 'sass', 'text']
     });
-
     // Map Sanity language names to Shiki language IDs
     const langMap: Record<string, string> = {
       javascript: 'javascript',
@@ -347,14 +234,32 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       bash: 'bash',
       sh: 'bash',
       shell: 'bash',
+      terminal: 'bash',
+      batchfile: 'bash',
       json: 'json',
       css: 'css',
+      scss: 'scss',
+      sass: 'scss',
       html: 'html',
       jsx: 'jsx',
+      tsx: 'tsx',
+      xml: 'xml',
+      yaml: 'yaml',
+      sql: 'sql',
+      mysql: 'sql',
+      csharp: 'csharp',
+      CSHARP: 'csharp',
+      c: 'c',
+      'c++': 'cpp',
+      cpp: 'cpp',
+      java: 'java',
+      ruby: 'ruby',
+      php: 'php',
+      markdown: 'markdown',
       text: 'text',
-      plaintext: 'text'
+      plaintext: 'text',
+      'Plain text': 'text'
     };
-
     data.body = data.body.map((block: CodeBlock) => {
       if (block._type === 'code' && block.code) {
         const rawLang = block.language?.toLowerCase() || 'text';
@@ -365,7 +270,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
           const lightHtml = highlighter.codeToHtml(block.code, { lang, theme: 'github-light' });
           block._highlightedHtml = `<div data-theme="dark">${darkHtml}</div><div data-theme="light" class="hidden">${lightHtml}</div>`;
         } catch {
-          block._highlightedHtml = block.code.replace(/[&<]/g, (c: string): string => c === '&' ? '&amp;' : '&lt;');
+          block._highlightedHtml = block.code.replace(/[&<]/g, (c: string): string => c === '&' ? '&' : '<');
         }
       }
       return block;
@@ -373,6 +278,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   }
   return data || null;
 }
+
 
 export async function getAllPostSlugs(): Promise<string[]> {
   'use cache'
@@ -382,7 +288,6 @@ export async function getAllPostSlugs(): Promise<string[]> {
   return data.map((post: { slug: string | null }) => post.slug).filter(Boolean) as string[];
 }
 
-const builder = imageUrlBuilder(client)
 
 export function getCroppedProfileImageUrl(image: SiteSettings['profileImage']): string | null {
   if (!image?.url || !image.crop || !image.assetId) {

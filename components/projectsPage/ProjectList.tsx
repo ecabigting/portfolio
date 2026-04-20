@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Project } from "@/lib/sanity";
+import { Project } from "@/lib/interfaces";
 
 interface ProjectListProps {
   projects: Project[];

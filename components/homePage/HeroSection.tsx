@@ -1,6 +1,6 @@
 import Image from "next/image";
-import type { SiteSettings } from "@/lib/sanity";
 import { getCroppedProfileImageUrl } from "@/lib/sanity";
+import { SiteSettings } from "@/lib/interfaces";
 
 interface HeroSectionProps {
   title: string | null;
