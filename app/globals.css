@@ -25,7 +25,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
-/* Shiki code block theme switching */
 [data-theme="dark"] { display: block; }
 [data-theme="light"] { display: none; }
 
@@ -34,19 +33,20 @@ body {
   [data-theme="light"] { display: block; }
 }
 
-/* Code block container fixes */
 .shiki {
   margin: 0 !important;
   padding: 1rem !important;
-  border-radius: 0 0 0.5rem 0.5rem !important;
-  background: transparent !important;
 }
 
-.shiki code {
-  background: transparent !important;
+[data-theme="light"] .shiki {
+  background-color: #f4f4f5 !important; /* zinc-100 */
 }
 
-/* Remove gap between language label and code block */
+[data-theme="dark"] .shiki {
+  background-color: #27272a !important; /* zinc-800 */
+}
+
+
 .shiki pre {
   margin-top: 0 !important;
   padding-top: 0.5rem !important;

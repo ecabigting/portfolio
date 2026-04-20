@@ -50,14 +50,14 @@ const CodeBlock = ({ value }: { value: CodeBlockValue }) => {
   };
   const displayLang = value.language ? (langMap[value.language] || value.language) : null;
   return (
-    <div className="my-4 rounded-lg overflow-hidden">
+    <div className="my-4 ">
       {displayLang && displayLang !== 'Plain Text' && (
-        <div className="px-3 py-1 text-xs font-extrabold bg-zinc-800 text-zinc-400 rounded-t-lg -mb-px">
+        <div className="px-3 py-1 text-xs font-extrabold bg-zinc-900 text-zinc-400 rounded-t-lg -mb-px">
           {displayLang}
         </div>
       )}
       <div
-        className="overflow-x-auto bg-zinc-100 dark:bg-zinc-800"
+        className="overflow-x-auto rounded-b-lg bg-zinc-100 dark:bg-zinc-800"
         dangerouslySetInnerHTML={{ __html: codeContent }}
       />
     </div>
