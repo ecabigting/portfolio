@@ -201,7 +201,14 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     publishedAt,
     excerpt,
     "mainImage": mainImage.asset->url,
-    body,
+    body[]{
+      ...,
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        "alt": alt
+      }
+    },
     "categories": categories[]->{ title },
     "author": author->{ name }
   }`;
@@ -210,9 +217,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     // Initialize Shiki highlighter with both themes for dark/light mode
     const highlighter = await createHighlighter({
       themes: ['github-dark', 'github-light'],
-      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx']
+      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx', 'cpp', 'c', 'scss', 'sql', 'tsx', 'xml', 'yaml', 'csharp', 'java', 'markdown', 'php', 'ruby', 'sass', 'text']
     });
-
     // Map Sanity language names to Shiki language IDs
     const langMap: Record<string, string> = {
       javascript: 'javascript',
@@ -228,14 +234,32 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       bash: 'bash',
       sh: 'bash',
       shell: 'bash',
+      terminal: 'bash',
+      batchfile: 'bash',
       json: 'json',
       css: 'css',
+      scss: 'scss',
+      sass: 'scss',
       html: 'html',
       jsx: 'jsx',
+      tsx: 'tsx',
+      xml: 'xml',
+      yaml: 'yaml',
+      sql: 'sql',
+      mysql: 'sql',
+      csharp: 'csharp',
+      CSHARP: 'csharp',
+      c: 'c',
+      'c++': 'cpp',
+      cpp: 'cpp',
+      java: 'java',
+      ruby: 'ruby',
+      php: 'php',
+      markdown: 'markdown',
       text: 'text',
-      plaintext: 'text'
+      plaintext: 'text',
+      'Plain text': 'text'
     };
-
     data.body = data.body.map((block: CodeBlock) => {
       if (block._type === 'code' && block.code) {
         const rawLang = block.language?.toLowerCase() || 'text';
@@ -246,7 +270,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
           const lightHtml = highlighter.codeToHtml(block.code, { lang, theme: 'github-light' });
           block._highlightedHtml = `<div data-theme="dark">${darkHtml}</div><div data-theme="light" class="hidden">${lightHtml}</div>`;
         } catch {
-          block._highlightedHtml = block.code.replace(/[&<]/g, (c: string): string => c === '&' ? '&amp;' : '&lt;');
+          block._highlightedHtml = block.code.replace(/[&<]/g, (c: string): string => c === '&' ? '&' : '<');
         }
       }
       return block;
@@ -254,6 +278,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   }
   return data || null;
 }
+
 
 export async function getAllPostSlugs(): Promise<string[]> {
   'use cache'
