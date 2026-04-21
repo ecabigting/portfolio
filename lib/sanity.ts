@@ -217,12 +217,15 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     publishedAt,
     excerpt,
     "mainImage": mainImage.asset->url,
+    "imageAttribution": imageAttribution,
+    "imageAttributionUrl": imageAttributionUrl,
     body[]{
       ...,
       _type == "image" => {
         ...,
         "url": asset->url,
-        "alt": alt
+        "alt": alt,
+        "attribution": attribution
       }
     },
     "categories": categories[]->{ title },

@@ -67,6 +67,24 @@ export default async function PostPage({ params }: PostPageProps) {
             className="w-full h-auto"
             priority
           />
+          {/* Attribution Section for Main Image */}
+          {post.imageAttribution || post.imageAttributionUrl && (
+            <div className="mt-1 text-xs text-zinc-500 italic">
+              {post.imageAttribution && (
+                <span>{post.imageAttribution} </span>
+              )}
+              {post.imageAttributionUrl && (
+                <a
+                  href={post.imageAttributionUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  source
+                </a>
+              )}
+            </div>
+          )}
         </div>
       )}
       <div className="prose prose-zinc dark:prose-invert max-w-none">
