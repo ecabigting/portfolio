@@ -114,3 +114,12 @@ export type CodeBlock = {
   _highlightedHtml?: string;
 }
 
+export interface RelatedPost {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  mainImage: string | null;
+  categories: Array<{ title: string | null }> | null;
+}
+

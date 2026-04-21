@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPostBySlug, getAllPostSlugs } from "@/lib/sanity";
+import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PortableText } from "@portabletext/react";
@@ -10,11 +10,13 @@ interface PostPageProps {
 }
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, relatedPosts] = await Promise.all([
+    getPostBySlug(slug),
+    getRelatedPosts(slug, 3)
+  ]);
   if (!post) {
     notFound();
   }
-  console.log(JSON.stringify(post.body))
   return (
     <article className="mx-auto max-w-3xl px-6 py-12">
       <Link
@@ -75,6 +77,66 @@ export default async function PostPage({ params }: PostPageProps) {
           </p>
         )}
       </div>
+
+      {relatedPosts.length > 0 && (
+        <section className="mt-12 pt-8">
+          <h2 className="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-red-400 via-orange-400 to-yellow-400 mb-6 text-center">
+            Continue Reading.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedPosts.map((relatedPost) => (
+              <Link
+                key={relatedPost._id}
+                href={`/blog/${relatedPost.slug}`}
+                className="flex flex-col bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800 hover:border-zinc-700 transition-colors"
+              >
+                {relatedPost.mainImage && (
+                  <div className="aspect-video w-full overflow-hidden">
+                    <Image
+                      width={100}
+                      height={100}
+                      src={relatedPost.mainImage}
+                      alt={relatedPost.title ?? "Blog post cover"}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-col flex-1 p-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {relatedPost.title}
+                  </h3>
+                  {relatedPost.categories && relatedPost.categories.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {relatedPost.categories.slice(0, 3).map((cat, i) => (
+                        <span
+                          key={i}
+                          className="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400"
+                        >
+                          {cat.title}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between mt-auto">
+                    {relatedPost.publishedAt && (
+                      <time className="text-xs text-zinc-500">
+                        {new Date(relatedPost.publishedAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                    )}
+                    <span className="text-sm text-transparent bg-clip-text bg-linear-to-r from-red-400 via-orange-400 to-yellow-400">
+                      Read more →
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   );
 }

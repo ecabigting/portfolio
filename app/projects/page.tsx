@@ -1,4 +1,4 @@
-import { getProjects, getSiteSettings } from "@/lib/sanity";
+import { getProjects } from "@/lib/sanity";
 import ProjectList from "@/components/projectsPage/ProjectList";
 import { Metadata } from "next";
 

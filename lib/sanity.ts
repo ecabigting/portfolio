@@ -2,7 +2,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import { createHighlighter } from 'shiki';
 import { createClient } from "next-sanity";
 import { cacheLife } from "next/cache";
-import { Project, BlogPost, BlogPostListItem, CodeBlock, FooterContent, Post, SiteSettings } from './interfaces';
+import { Project, BlogPost, BlogPostListItem, CodeBlock, FooterContent, Post, RelatedPost, SiteSettings } from './interfaces';
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECTID,
@@ -83,13 +83,12 @@ export async function getFooterContent(): Promise<FooterContent> {
     githubLink,
     linkedinLink,
     "year": now(),
-    "recentPosts": *[_type == "post"] | order(_createdAt desc) [0...10] {
+    "recentPosts": *[_type == "post" && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) [0...10] {
       "title": title,
       "slug": slug.current
     }
   }`;
   const footerData = await client.fetch(query);
-  console.log('[DEBUG] getFooterContent:', JSON.stringify(footerData, (k, v) => k === 'recentPosts' ? `[${v?.length || 0} items]` : v, 2))
   return footerData || {
     location: null,
     email: null,
@@ -114,7 +113,7 @@ export async function getFooter(): Promise<FooterContent | null> {
     githubLink,
     linkedinLink,
     "year": now(),
-    "recentPosts": *[_type == "post"] | order(_createdAt desc) [0...10] {
+    "recentPosts": *[_type == "post" && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) [0...10] {
       "title": title,
       "slug": slug.current
     }
@@ -154,32 +153,49 @@ export async function getProjects(): Promise<Project[]> {
 export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]> {
   'use cache'
   cacheLife('hours')
-  const query = `*[_type == "post" && featured == true ] | order(publishedAt desc) [0...${limit}] {
+  const query = `*[_type == "post" && featured == true && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) [0...$limit] {
     _id,
     title,
     "slug": slug.current,
     "excerpt": excerpt,
     publishedAt,
     "mainImage": mainImage.asset->url,
+    "categories": categories[]->{ title },
+    "todayIsNow": now()
+  }`;
+  const data = await client.fetch(query, { limit });
+  return (data || []);
+}
+
+export async function getRelatedPosts(currentSlug: string, limit: number = 3): Promise<RelatedPost[]> {
+  'use cache'
+  cacheLife('hours')
+  const query = `*[_type == "post" && featured == true && slug.current != $currentSlug && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) [0...$limit] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    "mainImage": mainImage.asset->url,
     "categories": categories[]->{ title }
   }`;
-  const data = await client.fetch(query);
-  return data || [];
+  const data = await client.fetch(query, { currentSlug, limit });
+  return (data || []);
 }
 
 export async function getBlogPostCount(): Promise<number> {
   'use cache'
   cacheLife('hours')
-  const query = `count(*[_type == "post"])`;
-  const result = await client.fetch(query);
-  return typeof result === 'number' ? result : 0;
+  const query = `count(*[_type == "post" && dateTime(publishedAt) <= dateTime(now())])`;
+  const data = await client.fetch(query);
+  return data || 0;
 }
 
 export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10): Promise<BlogPostListItem[]> {
   'use cache'
   cacheLife('hours')
   const start = (page - 1) * limit;
-  const query = `*[_type == "post"] | order(publishedAt desc) [${start}...${start + limit}] {
+  const end = start + limit;
+  const query = `*[_type == "post" && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) [${start}...${end}] {
     _id,
     title,
     "slug": slug.current,
@@ -188,7 +204,7 @@ export async function getPaginatedBlogPosts(page: number = 1, limit: number = 10
     body
   }`;
   const data = await client.fetch(query);
-  return data || [];
+  return (data || []);
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
@@ -214,12 +230,10 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   }`;
   const data = await client.fetch(query, { slug });
   if (data?.body) {
-    // Initialize Shiki highlighter with both themes for dark/light mode
     const highlighter = await createHighlighter({
       themes: ['github-dark', 'github-light'],
       langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx', 'cpp', 'c', 'scss', 'sql', 'tsx', 'xml', 'yaml', 'csharp', 'java', 'markdown', 'php', 'ruby', 'sass', 'text']
     });
-    // Map Sanity language names to Shiki language IDs
     const langMap: Record<string, string> = {
       javascript: 'javascript',
       js: 'javascript',
@@ -283,7 +297,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 export async function getAllPostSlugs(): Promise<string[]> {
   'use cache'
   cacheLife('hours')
-  const query = `*[_type == "post"]{ "slug": slug.current }`;
+  const query = `*[_type == "post" && dateTime(publishedAt) <= dateTime(now())]{ "slug": slug.current }`;
   const data = await client.fetch(query);
   return data.map((post: { slug: string | null }) => post.slug).filter(Boolean) as string[];
 }
