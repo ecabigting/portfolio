@@ -77,7 +77,7 @@ const SanityImage = ({ value }: { value: ImageValue }) => {
   if (!value.url || value.url === "") {
     return null;
   }
-  
+
   return (
     <div className="relative w-full">
       <Image
@@ -85,27 +85,26 @@ const SanityImage = ({ value }: { value: ImageValue }) => {
         alt={value.alt ?? ""}
         width={300}
         height={300}
-        className="w-full h-auto object-cover"
+        className="w-full h-auto object-cover not-prose"
       />
-{/* Attribution for block content images */}
-{value.attribution && (
-  <div className="mt-0 text-xs text-zinc-400 italic text-center">
-    <span>{value.attribution.description}</span>
-    {value.attribution.link && (
-      <>
-        {" "}
-        <a
-          href={value.attribution.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-        >
-          source
-        </a>
-      </>
-    )}
-  </div>
-)}
+      {value.attribution && (
+        <div className="text-xs text-zinc-400 italic text-center">
+          <span>{value.attribution.description}</span>
+          {value.attribution.link && (
+            <>
+              {" "}
+              <a
+                href={value.attribution.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                source
+              </a>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
