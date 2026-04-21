@@ -7,6 +7,15 @@ interface CodeBlockValue {
   _highlightedHtml?: string;
 }
 
+interface ImageValue {
+  url: string;
+  alt?: string;
+  attribution?: {
+    description: string;
+    link: string;
+  };
+}
+
 const CodeBlock = ({ value }: { value: CodeBlockValue }) => {
   const codeContent = value._highlightedHtml ?? value.code;
   const langMap: Record<string, string> = {
@@ -64,10 +73,11 @@ const CodeBlock = ({ value }: { value: CodeBlockValue }) => {
   );
 };
 
-const SanityImage = ({ value }: { value: { url: string; alt?: string } }) => {
+const SanityImage = ({ value }: { value: ImageValue }) => {
   if (!value.url || value.url === "") {
     return null;
   }
+
   return (
     <div className="relative w-full">
       <Image
@@ -75,8 +85,26 @@ const SanityImage = ({ value }: { value: { url: string; alt?: string } }) => {
         alt={value.alt ?? ""}
         width={300}
         height={300}
-        className="w-full h-auto object-cover"
+        className="w-full h-auto object-cover not-prose"
       />
+      {value.attribution && (
+        <div className="text-xs text-zinc-400 italic text-center">
+          <span>{value.attribution.description}</span>
+          {value.attribution.link && (
+            <>
+              {" "}
+              <a
+                href={value.attribution.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                source
+              </a>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

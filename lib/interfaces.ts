@@ -102,6 +102,8 @@ export interface Post {
   excerpt: string | null;
   publishedAt: string | null;
   mainImage: string | null;
+  imageAttribution: string | null;
+  imageAttributionUrl: string | null;
   body: PortableTextBlock[] | null;
   categories: Array<{ title: string | null }> | null;
   author: { name: string | null } | null;
@@ -112,5 +114,14 @@ export type CodeBlock = {
   language?: string;
   code: string;
   _highlightedHtml?: string;
+}
+
+export interface RelatedPost {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  mainImage: string | null;
+  categories: Array<{ title: string | null }> | null;
 }
 
