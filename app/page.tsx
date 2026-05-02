@@ -3,7 +3,7 @@ import HeroSection from "@/components/homePage/HeroSection";
 import AboutMeSection from "@/components/homePage/AboutMeSection";
 import ExperienceSection from "@/components/homePage/ExperienceSection";
 import BlogSection from "@/components/homePage/BlogSectionWrapper";
-import SkillsSection from "@/components/homePage/SkillsSectionWrapper";
+// import SkillsSection from "@/components/homePage/SkillsSectionWrapper";
 
 export default async function Home() {
   const [data, projects] = await Promise.all([getSiteSettings(), getProjects()]);
@@ -26,7 +26,7 @@ export default async function Home() {
         experience={data.experience}
         cvLink={data.cvLink}
       />
-      <SkillsSection />
+      {/* <SkillsSection /> */}
     </div>
   );
 }
