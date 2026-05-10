@@ -167,10 +167,10 @@ export async function getRecentBlogPosts(limit: number = 3): Promise<BlogPost[]>
   return (data || []);
 }
 
-export async function getRelatedPosts(currentSlug: string, limit: number = 3): Promise<RelatedPost[]> {
+export async function getRelatedPosts(currentSlug: string): Promise<RelatedPost[]> {
   'use cache'
   cacheLife('hours')
-  const query = `*[_type == "post" && featured == true && slug.current != $currentSlug && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) [0...$limit] {
+  const query = `*[_type == "post" && featured == true && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc) {
     _id,
     title,
     "slug": slug.current,
@@ -178,8 +178,39 @@ export async function getRelatedPosts(currentSlug: string, limit: number = 3): P
     "mainImage": mainImage.asset->url,
     "categories": categories[]->{ title }
   }`;
-  const data = await client.fetch(query, { currentSlug, limit });
-  return (data || []);
+  const data: RelatedPost[] = await client.fetch(query);
+
+  if (!data || data.length < 4) {
+    return [];
+  }
+
+  const currentIndex = data.findIndex((post) => post.slug === currentSlug);
+
+  if (currentIndex === -1) {
+    return [];
+  }
+
+  let selectedIndices: number[];
+
+  if (currentIndex === 0) {
+    // Reading the latest post: take the next 3 oldest
+    selectedIndices = [1, 2, 3];
+  } else if (currentIndex === 1) {
+    // Reading the 2nd latest: take the 1st, then the next 2 oldest from current
+    selectedIndices = [0, 2, 3];
+  } else {
+    // Reading 3rd or older: take the 1st, 2nd, and the next oldest from current
+    selectedIndices = [0, 1, currentIndex + 1];
+  }
+
+  // Ensure all selected indices are within bounds
+  const validIndices = selectedIndices.filter((i) => i < data.length);
+
+  if (validIndices.length !== 3) {
+    return [];
+  }
+
+  return validIndices.map((i) => data[i]);
 }
 
 export async function getBlogPostCount(): Promise<number> {
