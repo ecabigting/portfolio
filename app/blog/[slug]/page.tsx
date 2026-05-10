@@ -12,7 +12,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
   const [post, relatedPosts] = await Promise.all([
     getPostBySlug(slug),
-    getRelatedPosts(slug, 3)
+    getRelatedPosts(slug)
   ]);
   if (!post) {
     notFound();
@@ -64,7 +64,7 @@ export default async function PostPage({ params }: PostPageProps) {
             alt={post.title ?? "Post cover"}
             width={800}
             height={450}
-            className="w-full h-auto"
+            style={{ width: '100%', height: 'auto' }}
             priority
           />
           <div className="mt-1 text-xs text-zinc-500 italic">
@@ -106,13 +106,13 @@ export default async function PostPage({ params }: PostPageProps) {
                 className="flex flex-col bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800 hover:border-zinc-700 transition-colors"
               >
                 {relatedPost.mainImage && (
-                  <div className="aspect-video w-full overflow-hidden">
+                  <div className="aspect-video w-full overflow-hidden relative">
                     <Image
-                      width={100}
-                      height={100}
+                      fill
                       src={relatedPost.mainImage}
                       alt={relatedPost.title ?? "Blog post cover"}
-                      className="w-full h-full object-cover"
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
                 )}
