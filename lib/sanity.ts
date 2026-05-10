@@ -198,13 +198,15 @@ export async function getRelatedPosts(currentSlug: string): Promise<RelatedPost[
   } else if (currentIndex === 1) {
     // Reading the 2nd latest: take the 1st, then the next 2 oldest from current
     selectedIndices = [0, 2, 3];
+  } else if (currentIndex === data.length - 1) {
+    selectedIndices = [currentIndex - 3, currentIndex - 2, currentIndex - 1]
   } else {
     // Reading 3rd or older: take the 1st, 2nd, and the next oldest from current
-    selectedIndices = [0, 1, currentIndex + 1];
+    selectedIndices = [currentIndex - 2, currentIndex - 1, currentIndex + 1];
   }
 
   // Ensure all selected indices are within bounds
-  const validIndices = selectedIndices.filter((i) => i < data.length);
+  const validIndices = selectedIndices.filter((i) => i >= 0 && i < data.length);
 
   if (validIndices.length !== 3) {
     return [];
