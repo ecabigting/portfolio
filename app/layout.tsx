@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Eric Thomas D. Cabigting",
     description:
-      "Experienced full-stack developer specializing in building efficient, scalable software solutions. Proficient in Python, Go lang, C#.NET, TypeScript, JavaScript, ReactJS, and various databases. With a track record of delivering successful projects across government, hospitality, and e-commerce industries, I'm dedicated to crafting innovative software that drives business growth.",
+      "Experienced full-stack developer specializing in building efficient, scalable software solutions. Proficient in Python, Golang, C#.NET, TypeScript, JavaScript, ReactJS, and various databases. With a track record of delivering successful projects across government, hospitality, and e-commerce industries, I'm dedicated to crafting innovative software that drives business growth.",
     url: "https://ericcabigting.dev",
     siteName: "ecabigting - fullstack dev",
     locale: "en_US",
@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
-      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }
