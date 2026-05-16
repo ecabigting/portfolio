@@ -21,7 +21,13 @@ export default async function BlogPage() {
         </span>
       </h1>
       <BlogList posts={posts} />
+
       <Pagination currentPage={1} totalPages={totalPages} />
+      <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 italic">
+          Disclaimer: All content reflects my personal views only and does not represent the positions, strategies, or opinions of any entity I am or have been associated with.
+        </p>
+      </div>
     </div>
   );
 }
