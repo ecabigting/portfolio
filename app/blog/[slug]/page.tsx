@@ -93,6 +93,12 @@ export default async function PostPage({ params }: PostPageProps) {
         )}
       </div>
 
+      <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 italic">
+          Disclaimer: All content reflects my personal views only and does not represent the positions, strategies, or opinions of any entity I am or have been associated with.
+        </p>
+      </div>
+
       {relatedPosts.length > 0 && (
         <section className="mt-12 pt-8">
           <h2 className="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-red-400 via-orange-400 to-yellow-400 mb-6 text-center">
