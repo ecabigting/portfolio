@@ -114,4 +114,11 @@ export const portableTextComponents: PortableTextComponents = {
     code: CodeBlock,
     image: SanityImage,
   },
+  block: {
+    code: ({ children }) => (
+      <pre className="overflow-x-auto rounded-lg bg-zinc-100 dark:bg-zinc-800 p-4 my-4">
+        <code className="text-sm text-zinc-800 dark:text-zinc-200">{children}</code>
+      </pre>
+    ),
+  },
 };

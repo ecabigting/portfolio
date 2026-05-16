@@ -1,4 +1,4 @@
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import { createHighlighter } from 'shiki';
 import { createClient } from "next-sanity";
 import { cacheLife } from "next/cache";
@@ -11,7 +11,19 @@ export const client = createClient({
   useCdn: false,
 });
 
-const builder = imageUrlBuilder(client)
+const builder = createImageUrlBuilder(client)
+
+let _highlighterPromise: ReturnType<typeof createHighlighter> | null = null;
+
+function getHighlighter(): ReturnType<typeof createHighlighter> {
+  if (!_highlighterPromise) {
+    _highlighterPromise = createHighlighter({
+      themes: ['github-dark', 'github-light'],
+      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx', 'cpp', 'c', 'scss', 'sql', 'tsx', 'xml', 'yaml', 'csharp', 'java', 'markdown', 'php', 'ruby', 'sass', 'text']
+    });
+  }
+  return _highlighterPromise;
+}
 
 export async function getSiteSettings(): Promise<SiteSettings> {
   'use cache'
@@ -266,10 +278,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   }`;
   const data = await client.fetch(query, { slug });
   if (data?.body) {
-    const highlighter = await createHighlighter({
-      themes: ['github-dark', 'github-light'],
-      langs: ['javascript', 'typescript', 'python', 'go', 'rust', 'bash', 'json', 'css', 'html', 'jsx', 'cpp', 'c', 'scss', 'sql', 'tsx', 'xml', 'yaml', 'csharp', 'java', 'markdown', 'php', 'ruby', 'sass', 'text']
-    });
+    const highlighter = await getHighlighter();
     const langMap: Record<string, string> = {
       javascript: 'javascript',
       js: 'javascript',
